@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:js": "eslint .",
+    "test": "npm run lint:js",
     "start": "webpack-dev-server --mode=development --hot",
     "build": "webpack --mode=development"
   },
