@@ -12,7 +12,7 @@ template.innerHTML = `
     .chat-box {
       display: flex;
       flex-direction: column-reverse;
-      height: calc(90vh - 145px);
+      height: calc(100vh - 315px);
       overflow-y: auto;
     }
 
