@@ -121,4 +121,4 @@ class Message extends HTMLElement {
   }
 }
 
-customElements.define('my-message', Message);
+customElements.define('message-block', Message);
