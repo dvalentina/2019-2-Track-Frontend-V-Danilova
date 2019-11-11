@@ -4,7 +4,7 @@ template.innerHTML = `
     .chat-header {
       height: 175px;
       background-color: #8B008B;
-      display: flex;
+      display: none;
       flex-direction: row;
       padding: 10px;
       align-items: center;
@@ -14,7 +14,7 @@ template.innerHTML = `
     .chatlist-header {
       height: 175px;
       background-color: #8B008B;
-      display: none;
+      display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
@@ -50,13 +50,13 @@ template.innerHTML = `
 
     .user-name {
       display: flex;
-      font-size: 3vh;
+      font-size: 40px;
       margin-bottom: 0;
     }
 
     .user-status {
       display: flex;
-      font-size: 2vh;
+      font-size: 30px;
     }
 
     .button-options {
@@ -70,7 +70,7 @@ template.innerHTML = `
     .button-menu {
       display: flex;
       flex-grow: 4;
-      height: 4vh;
+      height: 60px;
       padding: 15px;
     }
 
@@ -94,7 +94,7 @@ template.innerHTML = `
   <div class="chatlist-header">
     <div class="button-menu">
       <svg version="1.1" id="button-menu-svg" fill="white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-      height="4vh" viewBox="0 0 459 459" xml:space="preserve">
+      height="100%" viewBox="0 0 459 459" xml:space="preserve">
         <g>
           <g id="menu">
             <path d="M0,382.5h459v-51H0V382.5z M0,255h459v-51H0V255z M0,76.5v51h459v-51H0z"/>
@@ -182,9 +182,11 @@ class messengerHeader extends HTMLElement {
   onReturnButtonClicked() {
     this.$chatHeader.style.display = 'none';
     this.$messageForm.style.display = 'none';
+    this.$messageForm.clearMessages();
 
     this.$chatlistHeader.style.display = 'flex';
     this.$chatList.style.display = 'flex';
+    this.$chatList.renderChats();
     this.$createChatButton.style.display = 'inline-block';
   }
 }

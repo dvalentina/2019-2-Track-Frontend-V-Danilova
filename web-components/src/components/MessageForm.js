@@ -4,7 +4,7 @@ template.innerHTML = `
     form-input {
       display: flex;
       flex-direction: row;
-      width: 100%;
+      width: 100vw;
       align-items: center;
       background-color: white;
     }
@@ -34,20 +34,34 @@ class MessageForm extends HTMLElement {
 
     this.$form = this.shadowRoot.querySelector('form');
     this.$input = this.shadowRoot.querySelector('form-input');
-    this.$chatbox = this.shadowRoot.querySelector('.chat-box');
+    this.$chatBox = this.shadowRoot.querySelector('.chat-box');
 
-    this.$messageHistory = JSON.parse(localStorage.getItem('key')) || [];
-
-    for (let i = 0; i < this.$messageHistory.length; i += 1) {
-      const newMessage = document.createElement('my-message');
-      newMessage.innerText = this.$messageHistory[i].innerText;
-      newMessage.time = this.$messageHistory[i].time;
-      newMessage.authorName = this.$messageHistory[i].authorName;
-      this.$chatbox.insertBefore(newMessage, this.$chatbox.firstChild);
-    }
+    this.$chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
 
     this.$form.addEventListener('submit', this.onSubmit.bind(this));
     this.$form.addEventListener('keypress', this.onKeyPress.bind(this));
+  }
+
+  renderMessages() {
+    this.$chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
+    const chatId = Number(this.getAttribute('id'));
+    this.$messages = this.$chatHistory[chatId].messages;
+    for (let i = 0; i < this.$messages.length; i += 1) {
+      const newMessage = document.createElement('message-block');
+      newMessage.innerText = this.$messages[i].innerText;
+      newMessage.time = this.$messages[i].time;
+      newMessage.authorName = this.$messages[i].authorName;
+      this.$chatBox.insertAdjacentElement(
+        'afterbegin',
+        newMessage,
+      );
+    }
+  }
+
+  clearMessages() {
+    while (this.$chatBox.firstChild) {
+      this.$chatBox.removeChild(this.$chatBox.firstChild);
+    }
   }
 
   onSubmit(event) {
@@ -55,7 +69,7 @@ class MessageForm extends HTMLElement {
     if (this.$input.value === '') {
       return;
     }
-    const newMessage = document.createElement('my-message');
+    const newMessage = document.createElement('message-block');
     newMessage.authorName = 'Me';
     newMessage.innerText = this.$input.value;
 
@@ -72,12 +86,14 @@ class MessageForm extends HTMLElement {
     }
     newMessage.time = `${twoDigitsAdjustmentHours}${nowHours}:${twoDigitsAdjustmentMinutes}${nowMinutes}`;
 
-    this.$messageHistory.push({
+    const chatId = Number(this.getAttribute('id'));
+    this.$chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
+    this.$chatHistory[chatId].messages.push({
       authorName: newMessage.authorName,
       innerText: newMessage.innerText,
       time: newMessage.time,
     });
-    this.$chatbox.insertBefore(newMessage, this.$chatbox.firstChild);
+    this.$chatBox.insertBefore(newMessage, this.$chatBox.firstChild);
     this.$input.value = '';
     this.addMessageToLocalStorage();
   }
@@ -89,10 +105,11 @@ class MessageForm extends HTMLElement {
   }
 
   addMessageToLocalStorage() {
-    if (this.$messageHistory === '') {
-      this.$messageHistory = [];
+    const chatId = Number(this.getAttribute('id'));
+    if (this.$chatHistory[chatId].messages === '') {
+      this.$chatHistory[chatId].messages = [];
     }
-    localStorage.setItem('key', JSON.stringify(this.$messageHistory));
+    localStorage.setItem('chats', JSON.stringify(this.$chatHistory));
   }
 }
 

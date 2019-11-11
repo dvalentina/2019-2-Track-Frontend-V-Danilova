@@ -7,7 +7,7 @@ template.innerHTML = `
       height: calc(100vh - 175px);
       width: 100%;
       overflow-y: scroll;
-      background-color: #F5F5F5;
+      background-color: white;
     }
 
     .create-chat-button {
@@ -50,7 +50,39 @@ class ChatList extends HTMLElement {
     this.$chatListSpace = this.shadowRoot.querySelector('.chat-list-space');
     this.$createChatButton = this.shadowRoot.querySelector('.create-chat-button');
 
+    this.$chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
+    this.renderChats();
+
     this.$createChatButton.addEventListener('click', this.onCreateChatButtonClicked.bind(this));
+  }
+
+  renderChats() {
+    this.$chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
+    for (let i = 0; i < this.$chatHistory.length; i += 1) {
+      const newChat = document.createElement('chat-block');
+      newChat.setAttribute('id', i);
+      newChat.chatName = this.$chatHistory[i].chatName;
+
+      const chatMessages = this.$chatHistory[i].messages;
+      const lastMessageNumber = chatMessages.length - 1;
+      if (lastMessageNumber >= 0) {
+        newChat.chatLastMessage = chatMessages[lastMessageNumber].innerText;
+        newChat.chatTime = chatMessages[lastMessageNumber].time;
+      } else {
+        newChat.chatLastMessage = 'No messages yet';
+        newChat.time = '';
+      }
+      this.$chatListSpace.insertAdjacentElement(
+        'afterbegin',
+        newChat,
+      );
+    }
+  }
+
+  clearChats() {
+    while (this.$chatListSpace.firstChild) {
+      this.$chatListSpace.removeChild(this.$chatListSpace.firstChild);
+    }
   }
 
   onCreateChatButtonClicked() {
@@ -58,9 +90,12 @@ class ChatList extends HTMLElement {
   }
 
   addNewChat() {
+    this.$chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
     const newChat = document.createElement('chat-block');
+    const chatId = this.$chatHistory.length;
+    newChat.setAttribute('id', chatId);
 
-    newChat.chatName = 'Name Surname';
+    newChat.chatName = `Name Surname #${chatId}`;
     newChat.chatLastMessage = 'Last message text';
 
     const now = new Date();
@@ -76,10 +111,27 @@ class ChatList extends HTMLElement {
     }
     newChat.chatTime = `${twoDigitsAdjustmentHours}${nowHours}:${twoDigitsAdjustmentMinutes}${nowMinutes}`;
 
+    newChat.messages = [];
+
+    this.$chatHistory.push({
+      id: newChat.id,
+      messages: newChat.messages,
+      chatName: newChat.chatName,
+    });
+
+    this.addChatToLocalStorage();
+
     this.$chatListSpace.insertAdjacentElement(
       'afterbegin',
       newChat,
     );
+  }
+
+  addChatToLocalStorage() {
+    if (this.$chatHistory === '') {
+      this.$chatHistory = [];
+    }
+    localStorage.setItem('chats', JSON.stringify(this.$chatHistory));
   }
 }
 

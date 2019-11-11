@@ -61,6 +61,8 @@ template.innerHTML = `
     color: grey;
     background-color: grey;
     height: 1px;
+    width: calc(100vw - 200px);
+    margin-left: 200px;
   }
   </style>
 
@@ -78,7 +80,7 @@ template.innerHTML = `
     <div class="chat-block-right-column">
       <div class="chat-time"></div>
       <div class="chat-delivery-indicator">
-        <svg version="1.1" id="Layer_1" height="40px" width="40px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        <svg version="1.1" id="Layer_1" fill="#8B008B" height="40px" width="40px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
           <g>
             <g>
@@ -91,7 +93,8 @@ template.innerHTML = `
       </div>
     </div>
   </div>
-  <hr></hr>
+  <hr>
+  
 `;
 
 class ChatBlock extends HTMLElement {
@@ -100,11 +103,38 @@ class ChatBlock extends HTMLElement {
     this.shadowRoot = this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
+    this.$chatBlock = this.shadowRoot.querySelector('.chat-block');
     this.$chatAvatar = this.shadowRoot.querySelector('.chat-avatar');
     this.$chatName = this.shadowRoot.querySelector('.chat-name');
     this.$chatLastMessage = this.shadowRoot.querySelector('.chat-last-message');
     this.$chatTime = this.shadowRoot.querySelector('.chat-time');
     this.$chatDeliveryIndicator = this.shadowRoot.querySelector('.chat-delivery-indicator');
+
+    this.$messengerHeader = document.querySelector('messenger-header');
+    this.$chatlistHeader = this.$messengerHeader.shadowRoot.querySelector('div.chatlist-header');
+    this.$chatList = document.querySelector('chat-list');
+    this.$chatHeader = this.$messengerHeader.shadowRoot.querySelector('div.chat-header');
+    this.$chatHeaderName = this.$messengerHeader.shadowRoot.querySelector('p.user-name');
+    this.$messageForm = document.querySelector('message-form');
+
+    this.$chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
+
+    this.addEventListener('click', this.openChat.bind(this));
+  }
+
+  openChat() {
+    this.$chatlistHeader.style.display = 'none';
+    this.$chatList.style.display = 'none';
+    this.$chatList.clearChats();
+
+    this.$chatHeader.style.display = 'flex';
+    const chatId = Number(this.getAttribute('id'));
+    this.$chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
+    this.$chatHeaderName.textContent = this.$chatHistory[chatId].chatName;
+
+    this.$messageForm.style.display = 'flex';
+    this.$messageForm.setAttribute('id', chatId);
+    this.$messageForm.renderMessages();
   }
 
   get chatAvatar() {
