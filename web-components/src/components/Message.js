@@ -4,6 +4,19 @@ template.innerHTML = `
     form {
       display: flex;
       flex-direction: column;
+      animation: 1s ease-out 1 slidein;
+    }
+
+    @keyframes slidein {
+      from {
+        margin-left: 100%;
+        width: 210%;
+      }
+
+      to {
+        margin-left: 0%;
+        width: 100%;
+      }
     }
 
     .result {
@@ -17,51 +30,48 @@ template.innerHTML = `
       height: auto;
       min-width: 40%;
       max-width: 70%;
-      font-size: 40px;
-      min-height: 70px;
-      border: 1px solid rgba(25, 25, 25, 0.32);
-      border-radius: 10px;
-      margin: 10px 60px 10px 10px;
-      padding: 10px;
+      min-height: 3vh;
+      border: 1px solid #8B008B;
+      border-radius: 1vh;
+      margin: 1vh 5vh 1vh 1vh;
+      padding: 1vh;
     }
-
     .result:before {
       content: " ";
       position: absolute;
       width: 0;
       height: 0;
-      right: -48px;
-      bottom: 0px;
-      border: 25px solid;
-      border-color: transparent transparent rgba(25, 25, 25, 0.32) rgba(25, 25, 25, 0.32);
+      right: -4.2vh;
+      bottom: 1vh;
+      border: 2vh solid;
+      border-color: transparent transparent #8B008B #8B008B;
     }
-
     .result:after {
       content: " ";
       position: absolute;
       width: 0;
       height: 0;
-      right: -46px;
-      bottom: 1px;
-      border: 25px solid;
+      right: -3.9vh;
+      bottom: 1.1vh;
+      border: 2vh solid;
       border-color: transparent transparent #D4C5D6 #D4C5D6;
     }
 
     .author-name {
       display: flex;
       align-self: flex-start;
-      font-size: 40px;
+      font-size: 3vh;
       color: #8E24AA;
       font-weight: bold;
-      padding: 10px;
+      padding: 1vh;
     }
 
     .message {
       display: flex;
       align-self: flex-start;
-      font-size: 40px;
+      font-size: 3vh;
       color: black;
-      padding: 10px 15px;
+      padding: 1vh 1.2vh;
       line-height: 1;
       word-break: break-all;
       -moz-hyphens: auto;
@@ -72,9 +82,9 @@ template.innerHTML = `
     .time {
       display: flex;
       align-self: flex-end;
-      font-size: 30px;
+      font-size: 2vh;
       color: gray;
-      padding: 5px;
+      padding: 0.5vh;
     }
   </style>
   <form>

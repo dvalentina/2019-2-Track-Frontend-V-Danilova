@@ -12,8 +12,9 @@ template.innerHTML = `
     .chat-box {
       display: flex;
       flex-direction: column-reverse;
-      height: calc(100vh - 315px);
+      height: 76vh;
       overflow-y: auto;
+      overflow-x: hidden;
     }
 
     input[type=submit] {

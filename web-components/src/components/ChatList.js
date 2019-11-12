@@ -4,31 +4,63 @@ template.innerHTML = `
     .chat-list-space {
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 175px);
-      width: 100%;
-      overflow-y: scroll;
+      height: 88vh;
+      width: 100vw;
+      overflow-y: auto;
+      overflow-x: hidden;
       background-color: white;
     }
 
     .create-chat-button {
       display: inline-block;
       position: absolute;
-      right: 60px;
-      bottom: 60px;
+      z-index: 1;
+      right: 6vh;
+      bottom: 6vh;
       background-color: #F7D721;
       fill: #9D8500;
-      height: 200px;
-      width: 200px;
+      height: 12vh;
+      width: 12vh;
       border-radius: 50%;
       cursor: pointer;
       border: none;
       outline: none;
+      box-shadow: 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+    }
+    .create-chat-button:hover {
+      animation: pulse 2s infinite;
+    }
+
+    @-webkit-keyframes pulse {
+      0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+      }
+      70% {
+          -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+      }
+      100% {
+          -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+      }
+    }
+    @keyframes pulse {
+      0% {
+        -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0.4), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+      }
+      70% {
+          -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+          box-shadow: 0 0 0 10px rgba(204,169,44, 0), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+      }
+      100% {
+          -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+          box-shadow: 0 0 0 0 rgba(204,169,44, 0), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+      }
     }
   </style>
   <div class="chat-list-space"></div>
   <button class="create-chat-button">
     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="50px" y="50px"
-    width="100px" height="100px" viewBox="0 0 528.899 528.899" style="enable-background:new 0 0 528.899 528.899;"
+    width="6vh" height="6vh" viewBox="0 0 528.899 528.899" style="enable-background:new 0 0 528.899 528.899;"
     xml:space="preserve">
       <g>
         <path d="M328.883,89.125l107.59,107.589l-272.34,272.34L56.604,361.465L328.883,89.125z M518.113,63.177l-47.981-47.981
