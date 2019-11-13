@@ -74,9 +74,6 @@ template.innerHTML = `
       padding: 1vh 1.2vh;
       line-height: 1;
       word-break: break-all;
-      -moz-hyphens: auto;
-      -webkit-hyphens: auto;
-      -ms-hyphens: auto;
     }
 
     .time {
