@@ -1,0 +1,11 @@
+.chatBox {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 76vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+input[type=submit] {
+  visibility: collapse;
+}
