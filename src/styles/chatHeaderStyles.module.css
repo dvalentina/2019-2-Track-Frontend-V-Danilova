@@ -1,18 +1,6 @@
 .chatHeader {
   height: 12vh;
   background-color: #8B008B;
-  display: none;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 0.8vh 1.5vh 0 rgba(0, 0, 0, 0.5);
-  position: relative;
-  z-index: 1;
-}
-
-.chatListHeader {
-  height: 12vh;
-  background-color: #8B008B;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,8 +9,6 @@
   position: relative;
   z-index: 1;
 }
-
-/* chatheader */
 
 .buttonReturn {
   display: flex;
@@ -35,7 +21,6 @@
 .buttonSearch {
   display: flex;
   padding: 1vh;
-  fill: white;
   height: 6vh;
   width: 6vh;
   position: relative;
@@ -51,6 +36,7 @@
 .userAvatarSvg {
   height: 8vh;
   width: 8vh;
+  fill: white;
 }
 
 .userInfo {
@@ -78,34 +64,8 @@
   display: flex;
   height: 6vh;
   width: 6vh;
-  fill: white;
   position: relative;
   margin-right: 0.5vh;
-}
-
-/* chatlistheader */
-
-.buttonMenu {
-  display: flex;
-  height: 6vh;
-  width: 6vh;
-  margin-left: 0.5vh;
-  position: relative;
-}
-
-.buttonSvg {
-  position: absolute;
-  top: 1vh;
-  left: 1vh; 
-  height: 4vh;
-  width: 4vh;
-}
-
-.chatListTitle {
-  display: flex;
-  font-size: 5vh;
-  font-weight: bold;
-  color: white;
 }
 
 .headerButton {
@@ -117,11 +77,21 @@
   transition: background-color 0.5s, border-radius 0.5s;
   height: 6vh;
   width: 6vh;
+  margin: 1vh;
   position: relative;
 }
-
+  
 .headerButton:hover {
   background-color: rgba(0,0,0, 0.2);
   border-radius: 50%;
   cursor: pointer;
+}
+
+.buttonSvg {
+  position: absolute;
+  top: 1vh;
+  left: 1vh; 
+  height: 4vh;
+  width: 4vh;
+  fill: white;
 }
