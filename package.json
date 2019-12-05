@@ -62,7 +62,7 @@
 		"format:changed": "pretty-quick",
 		"format:staged": "pretty-quick --staged",
 		"lint": "npm run lint:js && npm run lint:dup",
-                "lint:fix": "eslint --fix",
+		"lint:fix": "eslint --fix",
 		"lint:check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
 		"lint:js:fix": "npm run lint:js -- --fix",
 		"lint:js": "eslint src/**/*.js -c .eslintrc.json",
