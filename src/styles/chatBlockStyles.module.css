@@ -4,7 +4,7 @@
   height: 12vh;
   justify-content: stretch;
   align-items: center;
-  overflow: hidden;
+  position: relative;
   transition: background-color 0.5s;
 }
 .chatBlock:hover {
@@ -42,14 +42,14 @@
   display: flex;
   font-size: 3.2vh;
   color: black;
-  padding: 1vh;
+  padding: 0.5vh;
 }
 
 .chatLastMessage {
   display: flex;
   font-size: 3vh;
   color: grey;
-  padding: 1vh;
+  padding: 0.5vh;
 }
 
 .chatBlockRightColumn {
@@ -63,14 +63,20 @@
   display: flex;
   font-size: 2.5vh;
   color: grey;
-  padding-top: 2vh;
-  padding-right: 2vh;
+  padding: 0.7vh;
 }
 
 .chatDeliveryIndicator {
   display: flex;
   fill: #8B008B;
-  padding: 2vh;
+  padding: 1vh;
+}
+
+.chatDeliveryIndicatorSvg {
+  display: flex;
+  fill: #8B008B;
+  height: 2vh;
+  width: 2vh;
 }
 
 hr {
@@ -78,6 +84,6 @@ hr {
   color: grey;
   background-color: grey;
   height: 1px;
-  width: calc(100vw - 12vh);
-  margin-left: 12vh;
+  width: calc(100vw - 10vh);
+  margin-left: 10vh;
 }

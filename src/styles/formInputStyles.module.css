@@ -1,25 +1,21 @@
 .formInput {
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  border-top: 1px solid rgba(25, 25, 25, 0.32);
   align-items: center;
   background-color: white;
+  height: 12vh;
+  justify-content: space-between;
 }
 
 .inputMessage {
-  border: 0;
+  border: none;
   outline: none;
-  width: calc(100vw - 11vh);
-  height: 12vh;
+  width: 80vw;
+  height: 10vh;
   padding-left: 3.5vh;
   font-size: 3.5vh;
   display: flex;
-  flex-direction: row;
-}
-
-:host {
-  display: inline-block;
-  border-top: 1px solid rgba(25, 25, 25, 0.32);
 }
 
 .attachmentButton {
@@ -29,23 +25,23 @@
   align-content: center;
   background-color: white;
   position: relative;
-}
-
-.attachmentButtonSvg {
-  position: absolute;
-  top: 1.5vh;
-  left: 1.5vh;
-}
-
-.button {
-  display: inline-block;
   border: none;
   cursor: pointer;
   outline: none;
   transition: background-color 0.5s, border-radius 0.5s;
 }
-.button:hover {
+
+.attachmentButton:hover {
   background-color: rgba(0,0,0, 0.2);
   border-radius: 50%;
   cursor: pointer;
+}
+
+.attachmentButtonSvg {
+  position: absolute;
+  top: 1vh;
+  left: 1vh;
+  width: 5vh;
+  height: 5vh;
+  fill: grey;
 }

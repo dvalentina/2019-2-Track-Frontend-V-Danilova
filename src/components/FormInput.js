@@ -1,26 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from '../styles/formInputStyles.module.css';
-import attachmentButtonSvg from '../assets/attachment.svg';
+import { ReactComponent as AttachmentButtonSvg } from '../assets/attachment.svg';
 
 export default function FormInput(props) {
 	return (
-		<div className={styles.formImput}>
-			<InputMessage />
+		<form
+			className={styles.formInput} 
+			onSubmit={props.handleSubmit}
+		>
+			<input
+				type="text"
+				placeholder="Сообщение"
+				value={props.value}
+				onChange={props.handleChange}
+				className={styles.inputMessage}
+			/>
 			<AttachmentButton />
-		</div>
+		</form>
 	);
 }
 
-function InputMessage(props) {
-	return (
-		<input type="text" className={styles.inputMessage} />
-	);
-}
+FormInput.propTypes = {
+	value: PropTypes.string.isRequired,
+	handleChange: PropTypes.func.isRequired,
+	handleSubmit: PropTypes.func.isRequired,
+};
 
 function AttachmentButton(props) {
 	return (
 		<button className={styles.attachmentButton}>
-			<img className={styles.attachmentButtonSvg} src={attachmentButtonSvg} alt="Attach file" />
+			<AttachmentButtonSvg className={styles.attachmentButtonSvg} />
 		</button>
 	);
 }

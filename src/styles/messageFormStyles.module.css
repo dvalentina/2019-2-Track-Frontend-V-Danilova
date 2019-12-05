@@ -4,6 +4,7 @@
   height: 76vh;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: rgb(237, 237, 237);
 }
 
 input[type=submit] {

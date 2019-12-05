@@ -1,22 +1,43 @@
 import React from 'react';
-import styles from '../styles/clatBlockStyles.module.css';
-import chatAvatarSvg from '../assets/user.svg';
-import deliveryIndicator from '../assets/tick.svg';
+import PropTypes from 'prop-types';
+import styles from '../styles/chatBlockStyles.module.css';
+import { ReactComponent as ChatAvatarSvg } from '../assets/user.svg';
+import { ReactComponent as DeliveryIndicatorSvg } from '../assets/tick.svg';
 
-function ChatBlock(props) {
+export default function ChatBlock(props) {
 	return (
-		<div className={styles.chatBlock}>
-			<ChatAvatar />
-			<ChatBlockCenter />
-			<ChatBlockRight />
+		<div>
+			<div
+				data-id={props.id}
+				tabIndex={props.id}
+				role='button'
+				onClick={props.handleOpenChat}
+				className={styles.chatBlock}
+			>
+				<ChatAvatar />
+				<ChatBlockCenter
+					name={props.name}
+					lastMessage={props.lastMessage}
+				/>
+				<ChatBlockRight time={props.time} />
+			</div>
+			<hr />
 		</div>
 	);
 }
 
+ChatBlock.propTypes = {
+	name: PropTypes.string.isRequired,
+	lastMessage: PropTypes.string.isRequired,
+	time: PropTypes.string.isRequired,
+	handleOpenChat: PropTypes.func.isRequired,
+	id: PropTypes.number.isRequired,
+};
+
 function ChatAvatar(props) {
 	return (
 		<div className={styles.chatAvatar}>
-			<img src={chatAvatarSvg} className={styles.chatAvatarSvg} alt="" />
+			<ChatAvatarSvg className={styles.chatAvatarSvg} />
 		</div>
 	);
 }
@@ -24,43 +45,40 @@ function ChatAvatar(props) {
 function ChatBlockCenter(props) {
 	return (
 		<div className={styles.chatBlockCenterColumn}>
-			<ChatName />
-			<ChatLastMessage />
+			<div className={styles.chatName}>
+				{props.name}
+			</div>
+			<div className={styles.chatLastMessage}>
+				{props.lastMessage}
+			</div>
 		</div>
 	);
 }
 
+ChatBlockCenter.propTypes = {
+	name: PropTypes.string.isRequired,
+	lastMessage: PropTypes.string.isRequired,
+};
+
 function ChatBlockRight(props) {
 	return (
 		<div className={styles.chatBlockRightColumn}>
-			<ChatTime />
+			<div className={styles.chatTime}>
+				{props.time}
+			</div>
 			<ChatDeliveryIndicator />
 		</div>
 	);
 }
 
-function ChatName(props) {
-	return (
-		<div className={styles.chatName}>Name</div>
-	);
-}
-
-function ChatLastMessage(props) {
-	return (
-		<div className={styles.chatLastMessage}>Last Message</div>
-	);
-}
-
-function ChatTime(props) {
-	return (
-		<div className={styles.chatTime}>00:00</div>
-	);
-}
+ChatBlockRight.propTypes = {
+	time: PropTypes.string.isRequired,
+};
 
 function ChatDeliveryIndicator(props) {
 	return (
 		<div className={styles.chatDeliveryIndicator}>
-			<img src={deliveryIndicator} alt="" />
+			<DeliveryIndicatorSvg className={styles.chatDeliveryIndicatorSvg} />
 		</div>
 	);
 }

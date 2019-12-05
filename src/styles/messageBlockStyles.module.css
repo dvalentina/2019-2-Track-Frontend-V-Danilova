@@ -1,16 +1,15 @@
 .messageBlock {
   display: flex;
   flex-direction: column;
-  animation: 1s ease-out 1 slidein;
+  animation: slidein 1s ease-out 1;
 }
 
 @keyframes slidein {
-  from {
+  0% {
     margin-left: 100%;
     width: 210%;
   }
-
-  to {
+  100% {
     margin-left: 0%;
     width: 100%;
   }
