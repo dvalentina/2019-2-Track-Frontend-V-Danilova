@@ -4,7 +4,7 @@ import styles from '../styles/chatListStyles.module.css';
 import { ReactComponent as CreateChatButtonSvg } from '../assets/pencil.svg';
 import ChatBlock from './ChatBlock.js';
 
-export default function ChatList({ handleOpenChat }) {
+export default function ChatList({ handleOpenChat, handleKeyPress }) {
 	const [chats, setChats] = useState(initChats());
 
 	function initChats() {
@@ -34,6 +34,7 @@ export default function ChatList({ handleOpenChat }) {
 					id={newChat.id}
 					key={newChat.key}
 					handleOpenChat={handleOpenChat}
+					handleKeyPress={handleKeyPress}
 				/>
 			);
 		}
@@ -58,6 +59,7 @@ export default function ChatList({ handleOpenChat }) {
 					key={newChat.key}
 					id={newChat.id}
 					handleOpenChat={handleOpenChat}
+					handleKeyPress={handleKeyPress}
 				/>
 			)
 		);
@@ -75,7 +77,7 @@ export default function ChatList({ handleOpenChat }) {
 
 	function reverseArray(array) {
 		const newArray = [];
-		const length = array.length;
+		const { length } = array;
 		for (let i = 0; i < length; i += 1) {
 			newArray[i] = array[length - i - 1];
 		}
@@ -101,4 +103,5 @@ export default function ChatList({ handleOpenChat }) {
 
 ChatList.propTypes = {
 	handleOpenChat: PropTypes.func.isRequired,
+	handleKeyPress: PropTypes.func.isRequired,
 };

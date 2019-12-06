@@ -4,7 +4,9 @@ import styles from '../styles/chatBlockStyles.module.css';
 import { ReactComponent as ChatAvatarSvg } from '../assets/user.svg';
 import { ReactComponent as DeliveryIndicatorSvg } from '../assets/tick.svg';
 
-export default function ChatBlock({ id, handleOpenChat, lastMessage, name, time }) {
+export default function ChatBlock({ 
+	id, handleOpenChat, handleKeyPress, lastMessage, name, time 
+}) {
 	return (
 		<div>
 			<div
@@ -12,6 +14,7 @@ export default function ChatBlock({ id, handleOpenChat, lastMessage, name, time 
 				tabIndex={id}
 				role='button'
 				onClick={handleOpenChat}
+				onKeyPress={handleKeyPress}
 				className={styles.chatBlock}
 			>
 				<ChatAvatar />
@@ -31,6 +34,7 @@ ChatBlock.propTypes = {
 	lastMessage: PropTypes.string.isRequired,
 	time: PropTypes.string.isRequired,
 	handleOpenChat: PropTypes.func.isRequired,
+	handleKeyPress: PropTypes.func.isRequired,
 	id: PropTypes.number.isRequired,
 };
 

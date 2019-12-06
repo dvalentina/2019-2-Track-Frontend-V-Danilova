@@ -17,7 +17,7 @@ export default function MessageForm({ id }) {
 			return;
 		}
 		const submitTime = new Date().toTimeString().slice(0, 5);
-		const length = messages.length;
+		const { length } = messages;
 		const newMessage = {
 			authorName: 'Me',
 			content: inputValue,
@@ -73,7 +73,7 @@ export default function MessageForm({ id }) {
 
 	function reverseArray(array) {
 		const newArray = [];
-		const length = array.length;
+		const { length } = array;
 		for (let i = 0; i < length; i += 1) {
 			newArray[i] = array[length - i - 1];
 		}

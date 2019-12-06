@@ -12,6 +12,7 @@ export default class App extends React.Component {
 		};
 		this.handleOpenChat = this.handleOpenChat.bind(this);
 		this.handleReturn = this.handleReturn.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
 
 	handleOpenChat(event) {
@@ -19,6 +20,15 @@ export default class App extends React.Component {
 			screen: 'chat',
 			openedChatId: Number(event.currentTarget.dataset.id),
 		});
+	}
+
+	handleKeyPress(event) {
+		if (event.key === 'Enter') {
+			this.setState({
+				screen: 'chat',
+				openedChatId: Number(event.currentTarget.dataset.id),
+			});
+		}
 	}
 
 	handleReturn(event) {
@@ -41,13 +51,14 @@ export default class App extends React.Component {
 					screen={screen}
 					openedChatId={openedChatId}
 					handleOpenChat={this.handleOpenChat}
+					handleKeyPress={this.handleKeyPress}
 				/>
 			</div>
 		);
 	}
 }
 
-function MessengerScreen({ screen, openedChatId, handleOpenChat }) {
+function MessengerScreen({ screen, openedChatId, handleOpenChat, handleKeyPress }) {
 	if (screen === 'chat') {
 		return (
 			<MessageForm id={openedChatId} />
@@ -55,7 +66,10 @@ function MessengerScreen({ screen, openedChatId, handleOpenChat }) {
 	}
 	if (screen === 'chat list') {
 		return (
-			<ChatList handleOpenChat={handleOpenChat} />
+			<ChatList
+				handleOpenChat={handleOpenChat}
+				handleKeyPress={handleKeyPress}
+			/>
 		);
 	}
 }
