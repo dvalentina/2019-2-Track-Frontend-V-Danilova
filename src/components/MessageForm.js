@@ -13,6 +13,7 @@ export default function MessageForm({ id }) {
 	}
 
 	function handleSubmit(event) {
+		event.preventDefault();
 		if (inputValue === '') {
 			return;
 		}
@@ -38,7 +39,6 @@ export default function MessageForm({ id }) {
 		);
 		addMessageToLocalStorage(newMessage);
 		setInputValue('');
-		event.preventDefault();
 	}
 
 	function initMessages() {
