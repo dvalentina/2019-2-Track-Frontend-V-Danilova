@@ -11,7 +11,8 @@ export default function Header({ screen, openedChatId, handleReturn }) {
 				handleReturn={handleReturn}
 			/>
 		);
-	} else if (screen === 'chat list') {
+	}
+	if (screen === 'chat list') {
 		return (
 			<ChatListHeader />
 		);
