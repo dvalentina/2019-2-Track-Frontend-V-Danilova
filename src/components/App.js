@@ -28,16 +28,18 @@ export default class App extends React.Component {
 	}
 
 	render() {
+		const { screen, openedChatId } = this.state;
+		
 		return(
 			<div>
 				<Header
-					screen={this.state.screen}
-					openedChatId={this.state.openedChatId}
+					screen={screen}
+					openedChatId={openedChatId}
 					handleReturn={this.handleReturn} 
 				/>
 				<MessengerScreen
-					screen={this.state.screen}
-					openedChatId={this.state.openedChatId}
+					screen={screen}
+					openedChatId={openedChatId}
 					handleOpenChat={this.handleOpenChat}
 				/>
 			</div>
@@ -45,15 +47,15 @@ export default class App extends React.Component {
 	}
 }
 
-function MessengerScreen(props) {
-	const screen = props.screen;
+function MessengerScreen({ screen, openedChatId, handleOpenChat }) {
 	if (screen === 'chat') {
 		return (
-			<MessageForm id={props.openedChatId} />
+			<MessageForm id={openedChatId} />
 		);
-	} else if (screen === 'chat list') {
+	}
+	if (screen === 'chat list') {
 		return (
-			<ChatList handleOpenChat={props.handleOpenChat} />
+			<ChatList handleOpenChat={handleOpenChat} />
 		);
 	}
 }

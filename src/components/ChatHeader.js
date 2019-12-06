@@ -6,12 +6,12 @@ import { ReactComponent as ReturnButtonSvg } from '../assets/return.svg';
 import { ReactComponent as SearchButtonSvg } from '../assets/search.svg';
 import { ReactComponent as OptionsButtonSvg } from '../assets/options.svg';
 
-export default function ChatHeader(props) {
+export default function ChatHeader({ openedChatId, handleReturn }) {
 	return (
 		<div className={styles.chatHeader}>
-			<ReturnButton handleReturn={props.handleReturn} />
+			<ReturnButton handleReturn={handleReturn} />
 			<UserAvatar />
-			<ChatTitle openedChatId={props.openedChatId} />
+			<ChatTitle openedChatId={openedChatId} />
 			<SearchButton />
 			<OptionsButton />
 		</div>
@@ -19,7 +19,7 @@ export default function ChatHeader(props) {
 }
 
 ChatHeader.propTypes = {
-	openedChatId: PropTypes.number.isRequired,
+	openedChatId: PropTypes.number.isRequired, 
 	handleReturn: PropTypes.func.isRequired,
 };
 
@@ -31,11 +31,11 @@ function UserAvatar(props) {
 	);
 }
 
-function ReturnButton(props) {
+function ReturnButton({ handleReturn }) {
 	return (
 		<button
 			className={styles.headerButton}
-			onClick={props.handleReturn}
+			onClick={handleReturn}
 		>
 			<ReturnButtonSvg className={styles.buttonSvg} />
 		</button>
@@ -62,9 +62,9 @@ function OptionsButton(props) {
 	);
 }
 
-function ChatTitle(props) {
+function ChatTitle({ openedChatId }) {
 	const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
-	const currentChat = chatHistory[props.openedChatId];
+	const currentChat = chatHistory[openedChatId];
 	const userName = currentChat.name;
 	return (
 		<div className={styles.userInfo}>

@@ -4,22 +4,22 @@ import styles from '../styles/chatBlockStyles.module.css';
 import { ReactComponent as ChatAvatarSvg } from '../assets/user.svg';
 import { ReactComponent as DeliveryIndicatorSvg } from '../assets/tick.svg';
 
-export default function ChatBlock(props) {
+export default function ChatBlock({ id, handleOpenChat, lastMessage, name, time }) {
 	return (
 		<div>
 			<div
-				data-id={props.id}
-				tabIndex={props.id}
+				data-id={id}
+				tabIndex={id}
 				role='button'
-				onClick={props.handleOpenChat}
+				onClick={handleOpenChat}
 				className={styles.chatBlock}
 			>
 				<ChatAvatar />
 				<ChatBlockCenter
-					name={props.name}
-					lastMessage={props.lastMessage}
+					name={name}
+					lastMessage={lastMessage}
 				/>
-				<ChatBlockRight time={props.time} />
+				<ChatBlockRight time={time} />
 			</div>
 			<hr />
 		</div>
@@ -42,14 +42,14 @@ function ChatAvatar(props) {
 	);
 }
 
-function ChatBlockCenter(props) {
+function ChatBlockCenter({ name, lastMessage }) {
 	return (
 		<div className={styles.chatBlockCenterColumn}>
 			<div className={styles.chatName}>
-				{props.name}
+				{name}
 			</div>
 			<div className={styles.chatLastMessage}>
-				{props.lastMessage}
+				{lastMessage}
 			</div>
 		</div>
 	);
@@ -60,11 +60,11 @@ ChatBlockCenter.propTypes = {
 	lastMessage: PropTypes.string.isRequired,
 };
 
-function ChatBlockRight(props) {
+function ChatBlockRight({ time }) {
 	return (
 		<div className={styles.chatBlockRightColumn}>
 			<div className={styles.chatTime}>
-				{props.time}
+				{time}
 			</div>
 			<ChatDeliveryIndicator />
 		</div>

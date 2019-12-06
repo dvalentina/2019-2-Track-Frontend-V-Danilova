@@ -4,7 +4,7 @@ import styles from '../styles/messageFormStyles.module.css';
 import FormInput from './FormInput.js';
 import MessageBlock from './MessageBlock.js';
 
-export default function MessageForm(props) {
+export default function MessageForm({ id }) {
 	const [messages, setMessages] = useState(initMessages());
 	const [inputValue, setInputValue] = useState('');
 
@@ -43,7 +43,7 @@ export default function MessageForm(props) {
 
 	function initMessages() {
 		const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
-		const currentChat = chatHistory[props.id];
+		const currentChat = chatHistory[id];
 		const messagesFromStorage = currentChat.messages;
 		const initialMessages = [];
 		for (let i = 0; i < messagesFromStorage.length; i += 1) {
@@ -63,7 +63,7 @@ export default function MessageForm(props) {
 
 	function addMessageToLocalStorage(newMessage) {
 		const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
-		const currentChat = chatHistory[props.id];
+		const currentChat = chatHistory[id];
 		if (currentChat.messages === '') {
 			currentChat.messages = [];
 		}

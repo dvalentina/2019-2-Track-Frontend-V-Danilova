@@ -4,7 +4,7 @@ import styles from '../styles/chatListStyles.module.css';
 import { ReactComponent as CreateChatButtonSvg } from '../assets/pencil.svg';
 import ChatBlock from './ChatBlock.js';
 
-export default function ChatList(props) {
+export default function ChatList({ handleOpenChat }) {
 	const [chats, setChats] = useState(initChats());
 
 	function initChats() {
@@ -33,7 +33,7 @@ export default function ChatList(props) {
 					time={newChat.time}
 					id={newChat.id}
 					key={newChat.key}
-					handleOpenChat={props.handleOpenChat}
+					handleOpenChat={handleOpenChat}
 				/>
 			);
 		}
@@ -57,7 +57,7 @@ export default function ChatList(props) {
 					time={newChat.time}
 					key={newChat.key}
 					id={newChat.id}
-					handleOpenChat={props.handleOpenChat}
+					handleOpenChat={handleOpenChat}
 				/>
 			)
 		);
