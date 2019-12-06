@@ -29,7 +29,7 @@ FormInput.propTypes = {
 
 function AttachmentButton(props) {
 	return (
-		<button className={styles.attachmentButton}>
+		<button type='button' className={styles.attachmentButton}>
 			<AttachmentButtonSvg className={styles.attachmentButtonSvg} />
 		</button>
 	);

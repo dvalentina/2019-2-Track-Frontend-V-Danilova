@@ -34,6 +34,7 @@ function UserAvatar(props) {
 function ReturnButton({ handleReturn }) {
 	return (
 		<button
+			type='button'
 			className={styles.headerButton}
 			onClick={handleReturn}
 		>
@@ -48,7 +49,7 @@ ReturnButton.propTypes = {
 
 function SearchButton(props) {
 	return (
-		<button className={styles.headerButton}>
+		<button type='button' className={styles.headerButton}>
 			<SearchButtonSvg className={styles.buttonSvg} />
 		</button>
 	);
@@ -56,7 +57,7 @@ function SearchButton(props) {
 
 function OptionsButton(props) {
 	return (
-		<button className={styles.headerButton}>
+		<button type='button' className={styles.headerButton}>
 			<OptionsButtonSvg className={styles.buttonSvg} />
 		</button>
 	);

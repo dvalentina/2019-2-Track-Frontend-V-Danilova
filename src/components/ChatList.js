@@ -89,6 +89,7 @@ export default function ChatList({ handleOpenChat }) {
 				{reversedChats}
 			</div>
 			<button
+				type='button'
 				className={styles.createChatButton}
 				onClick={handleCreateChatClick}
 			>

@@ -15,7 +15,7 @@ export default function ChatListHeader(props) {
 
 function MenuButton(props) {
 	return (
-		<button className={styles.headerButton}>
+		<button type='button' className={styles.headerButton}>
 			<MenuButtonSvg className={styles.buttonSvg} />
 		</button>
 	);
@@ -28,7 +28,7 @@ function ChatListTitle(props) {
 
 function SearchButton(props) {
 	return (
-		<button className={styles.headerButton}>
+		<button type='button' className={styles.headerButton}>
 			<SearchButtonSvg className={styles.buttonSvg} />
 		</button>
 	);
