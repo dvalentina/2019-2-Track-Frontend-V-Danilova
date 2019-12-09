@@ -1,0 +1,89 @@
+.chatBlock {
+  display: flex;
+  flex-direction: row;
+  height: 12vh;
+  justify-content: stretch;
+  align-items: center;
+  position: relative;
+  transition: background-color 0.5s;
+}
+.chatBlock:hover {
+  background-color: rgba(142, 36, 170, 0.15);
+  cursor: pointer;
+}
+.chatBlock:active {
+  box-shadow: inset 0 0 20px 0 rgba(0, 0, 0, 0.25);
+}
+
+.chatAvatar {
+  display: flex;
+  flex-grow: 0;
+  height: 10vh;
+  width: 10vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.chatAvatarSvg {
+  display: flex;
+  height: 8vh;
+  width: 8vh;
+}
+
+.chatBlockCenterColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 65vw;
+  overflow: hidden;
+}
+
+.chatName {
+  display: flex;
+  font-size: 3.2vh;
+  color: black;
+  padding: 0.5vh;
+}
+
+.chatLastMessage {
+  display: flex;
+  font-size: 3vh;
+  color: grey;
+  padding: 0.5vh;
+}
+
+.chatBlockRightColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-grow: 1;
+}
+
+.chatTime {
+  display: flex;
+  font-size: 2.5vh;
+  color: grey;
+  padding: 0.7vh;
+}
+
+.chatDeliveryIndicator {
+  display: flex;
+  fill: #8B008B;
+  padding: 1vh;
+}
+
+.chatDeliveryIndicatorSvg {
+  display: flex;
+  fill: #8B008B;
+  height: 2vh;
+  width: 2vh;
+}
+
+hr {
+  border: none;
+  color: grey;
+  background-color: grey;
+  height: 1px;
+  width: calc(100vw - 10vh);
+  margin-left: 10vh;
+}

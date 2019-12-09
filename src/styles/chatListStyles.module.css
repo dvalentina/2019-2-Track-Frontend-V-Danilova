@@ -1,0 +1,47 @@
+.chatListSpace {
+  display: flex;
+  flex-direction: column;
+  height: 88vh;
+  width: 100vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: white;
+}
+
+.createChatButton {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  right: 6vh;
+  bottom: 6vh;
+  background-color: #F7D721;
+  fill: #9D8500;
+  height: 12vh;
+  width: 12vh;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  box-shadow: 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+}
+
+.createChatButton:hover {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(204,169,44, 0), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0), 0 1vh 1.5vh 0 rgba(0,0,0, 0.4);
+  }
+}
+
+.createChatButtonSvg {
+  height: 6vh;
+  width: 6vh;
+}

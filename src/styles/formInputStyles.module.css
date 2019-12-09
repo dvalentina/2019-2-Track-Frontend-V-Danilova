@@ -1,0 +1,47 @@
+.formInput {
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid rgba(25, 25, 25, 0.32);
+  align-items: center;
+  background-color: white;
+  height: 12vh;
+  justify-content: space-between;
+}
+
+.inputMessage {
+  border: none;
+  outline: none;
+  width: 80vw;
+  height: 10vh;
+  padding-left: 3.5vh;
+  font-size: 3.5vh;
+  display: flex;
+}
+
+.attachmentButton {
+  display: flex;
+  width: 7vh;
+  height: 7vh;
+  align-content: center;
+  background-color: white;
+  position: relative;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.5s, border-radius 0.5s;
+}
+
+.attachmentButton:hover {
+  background-color: rgba(0,0,0, 0.2);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.attachmentButtonSvg {
+  position: absolute;
+  top: 1vh;
+  left: 1vh;
+  width: 5vh;
+  height: 5vh;
+  fill: grey;
+}
