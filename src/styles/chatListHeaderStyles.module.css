@@ -30,8 +30,9 @@
 .chatListTitle {
   display: flex;
   font-size: 5vh;
-  font-weight: bold;
   color: white;
+  flex-grow: 1;
+  margin-left: 5vw;
 }
   
 .headerButton {
