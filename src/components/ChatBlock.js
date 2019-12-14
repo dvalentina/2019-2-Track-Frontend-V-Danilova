@@ -1,29 +1,30 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from '../styles/chatBlockStyles.module.css';
 import { ReactComponent as ChatAvatarSvg } from '../assets/user.svg';
 import { ReactComponent as DeliveryIndicatorSvg } from '../assets/tick.svg';
 
 export default function ChatBlock({ 
-	id, handleOpenChat, handleKeyPress, lastMessage, name, time 
+	id, lastMessage, name, time 
 }) {
 	return (
 		<div>
-			<div
-				data-id={id}
-				tabIndex={id}
-				role='button'
-				onClick={handleOpenChat}
-				onKeyPress={handleKeyPress}
-				className={styles.chatBlock}
-			>
-				<ChatAvatar />
-				<ChatBlockCenter
-					name={name}
-					lastMessage={lastMessage}
-				/>
-				<ChatBlockRight time={time} />
-			</div>
+			<Link to={`/chat/${id}`} className={styles.link}>
+				<div
+					data-id={id}
+					tabIndex={id}
+					role='button'
+					className={styles.chatBlock}
+				>
+					<ChatAvatar />
+					<ChatBlockCenter
+						name={name}
+						lastMessage={lastMessage}
+					/>
+					<ChatBlockRight time={time} />
+				</div>
+			</Link>
 			<hr />
 		</div>
 	);
@@ -33,8 +34,6 @@ ChatBlock.propTypes = {
 	name: PropTypes.string.isRequired,
 	lastMessage: PropTypes.string.isRequired,
 	time: PropTypes.string.isRequired,
-	handleOpenChat: PropTypes.func.isRequired,
-	handleKeyPress: PropTypes.func.isRequired,
 	id: PropTypes.number.isRequired,
 };
 
