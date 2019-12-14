@@ -7,7 +7,7 @@ import { ReactComponent as SaveButtonSvg } from '../assets/tick.svg';
 export default function EditProfileHeader(props) {
 	return (
 		<div className={styles.editProfileHeader}>
-			<Link to={'/'} className={styles.headerButton}>
+			<Link to='/' className={styles.headerButton}>
 				<ReturnButtonSvg className={styles.buttonSvg} />
 			</Link>
 			<EditProfileTitle />

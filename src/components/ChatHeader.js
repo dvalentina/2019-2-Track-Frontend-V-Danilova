@@ -9,7 +9,7 @@ import { ReactComponent as OptionsButtonSvg } from '../assets/options.svg';
 export default function ChatHeader(props) {
 	return (
 		<div className={styles.chatHeader}>
-			<Link to={'/'} className={styles.headerButton}>
+			<Link to='/' className={styles.headerButton}>
 				<ReturnButtonSvg className={styles.buttonSvg} />
 			</Link>
 			<UserAvatar />
