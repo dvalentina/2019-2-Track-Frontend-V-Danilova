@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import styles from '../styles/messageFormStyles.module.css';
 import FormInput from './FormInput.js';
 import MessageBlock from './MessageBlock.js';
 
-export default function MessageForm({ id }) {
+export default function MessageForm(props) {
+	const { chatId } = useParams();
 	const [messages, setMessages] = useState(initMessages());
 	const [inputValue, setInputValue] = useState('');
 
@@ -43,7 +44,7 @@ export default function MessageForm({ id }) {
 
 	function initMessages() {
 		const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
-		const currentChat = chatHistory[id];
+		const currentChat = chatHistory[chatId];
 		const messagesFromStorage = currentChat.messages;
 		const initialMessages = [];
 		for (let i = 0; i < messagesFromStorage.length; i += 1) {
@@ -63,7 +64,7 @@ export default function MessageForm({ id }) {
 
 	function addMessageToLocalStorage(newMessage) {
 		const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
-		const currentChat = chatHistory[id];
+		const currentChat = chatHistory[chatId];
 		if (currentChat.messages === '') {
 			currentChat.messages = [];
 		}
@@ -95,7 +96,3 @@ export default function MessageForm({ id }) {
 		</div>
 	);
 }
-
-MessageForm.propTypes = {
-	id: PropTypes.number.isRequired,
-};

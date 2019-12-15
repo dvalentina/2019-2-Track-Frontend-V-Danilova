@@ -1,27 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Link, useParams } from 'react-router-dom';
 import styles from '../styles/chatHeaderStyles.module.css';
 import { ReactComponent as UserAvatarSvg } from '../assets/user.svg';
 import { ReactComponent as ReturnButtonSvg } from '../assets/return.svg';
 import { ReactComponent as SearchButtonSvg } from '../assets/search.svg';
 import { ReactComponent as OptionsButtonSvg } from '../assets/options.svg';
 
-export default function ChatHeader({ openedChatId, handleReturn }) {
+export default function ChatHeader(props) {
 	return (
 		<div className={styles.chatHeader}>
-			<ReturnButton handleReturn={handleReturn} />
+			<Link to='/' className={styles.headerButton}>
+				<ReturnButtonSvg className={styles.buttonSvg} />
+			</Link>
 			<UserAvatar />
-			<ChatTitle openedChatId={openedChatId} />
+			<ChatTitle />
 			<SearchButton />
 			<OptionsButton />
 		</div>
 	);
 }
-
-ChatHeader.propTypes = {
-	openedChatId: PropTypes.number.isRequired, 
-	handleReturn: PropTypes.func.isRequired,
-};
 
 function UserAvatar(props) {
 	return (
@@ -30,22 +27,6 @@ function UserAvatar(props) {
 		</div>
 	);
 }
-
-function ReturnButton({ handleReturn }) {
-	return (
-		<button
-			type='button'
-			className={styles.headerButton}
-			onClick={handleReturn}
-		>
-			<ReturnButtonSvg className={styles.buttonSvg} />
-		</button>
-	);
-}
-
-ReturnButton.propTypes = {
-	handleReturn: PropTypes.func.isRequired,
-};
 
 function SearchButton(props) {
 	return (
@@ -63,10 +44,14 @@ function OptionsButton(props) {
 	);
 }
 
-function ChatTitle({ openedChatId }) {
+function ChatTitle(props) {
+	const { chatId } = useParams();
 	const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
-	const currentChat = chatHistory[openedChatId];
-	const userName = currentChat.name;
+	let userName = 'User Name';
+	if (chatHistory !== null) {
+		const currentChat = chatHistory[chatId];
+		userName = currentChat.name;
+	};
 	return (
 		<div className={styles.userInfo}>
 			<p className={styles.userName}>{userName}</p>
@@ -74,7 +59,3 @@ function ChatTitle({ openedChatId }) {
 		</div>
 	);
 }
-
-ChatTitle.propTypes = {
-	openedChatId: PropTypes.number.isRequired,
-};
