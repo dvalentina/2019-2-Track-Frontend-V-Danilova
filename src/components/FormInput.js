@@ -16,6 +16,8 @@ export default function FormInput({
 	handleAttachAudio,
 	handleAttachGeolocation,
 	isAttachPressed,
+	isRecording,
+	handleStopRecordingClick,
 }) {
 	return (
 		<form
@@ -31,10 +33,12 @@ export default function FormInput({
 			/>
 			<AttachmentButton
 				isPressed={isAttachPressed}
+				isRecording={isRecording}
 				handleAttach={handleAttach}
 				handleAttachImage={handleAttachImage}
 				handleAttachAudio={handleAttachAudio}
 				handleAttachGeolocation={handleAttachGeolocation}
+				handleStopRecordingClick={handleStopRecordingClick}
 			/>
 		</form>
 	);
@@ -49,14 +53,18 @@ FormInput.propTypes = {
 	handleAttachAudio: PropTypes.func.isRequired,
 	handleAttachGeolocation: PropTypes.func.isRequired,
 	isAttachPressed: PropTypes.bool.isRequired,
+	isRecording: PropTypes.bool.isRequired,
+	handleStopRecordingClick: PropTypes.func.isRequired,
 };
 
 function AttachmentButton({
 	isPressed,
+	isRecording,
 	handleAttach,
 	handleAttachImage,
 	handleAttachAudio,
 	handleAttachGeolocation,
+	handleStopRecordingClick,
 }) {
 	const imageInput = React.useRef(null);
 	function handleImageInput() {
@@ -93,23 +101,11 @@ function AttachmentButton({
 				ref={imageInput}
 				style={{ display: 'none' }}
 			/>
-			<button
-				onClick={handleAttachAudio}
-				type='button'
-				className={styles.attachmentButton}
-				id='startRecording'
-			>
-				<StartRecordButtonSvg className={styles.attachmentButtonSvg} />
-			</button>
-			<button
-				onClick={handleAttachAudio}
-				type='button'
-				className={styles.attachmentButton}
-				id='stopRecording'
-				style={{ display: 'none' }}
-			>
-				<StopRecordButtonSvg className={styles.attachmentButtonSvg} />
-			</button>
+			<AudioButton
+				handleStopRecordingClick={handleStopRecordingClick}
+				handleAttachAudio={handleAttachAudio}
+				isRecording={isRecording}
+			/>
 			<button
 				onClick={handleAttachGeolocation}
 				type='button'
@@ -127,4 +123,37 @@ AttachmentButton.propTypes = {
 	handleAttachAudio: PropTypes.func.isRequired,
 	handleAttachGeolocation: PropTypes.func.isRequired,
 	isPressed: PropTypes.bool.isRequired,
+	isRecording: PropTypes.bool.isRequired,
+	handleStopRecordingClick: PropTypes.func.isRequired,
+};
+
+function AudioButton({ isRecording, handleAttachAudio, handleStopRecordingClick }) {
+	if (isRecording) {
+		return(
+			<button
+				onClick={handleStopRecordingClick}
+				type='button'
+				className={styles.attachmentButton}
+				id='stopRecording'
+			>
+				<StopRecordButtonSvg className={styles.attachmentButtonSvg} />
+			</button>
+		);
+	};
+	return(
+		<button
+			onClick={handleAttachAudio}
+			type='button'
+			className={styles.attachmentButton}
+			id='startRecording'
+		>
+			<StartRecordButtonSvg className={styles.attachmentButtonSvg} />
+		</button>
+	);
+}
+
+AudioButton.propTypes = {
+	isRecording: PropTypes.bool.isRequired,
+	handleAttachAudio: PropTypes.func.isRequired,
+	handleStopRecordingClick: PropTypes.func.isRequired,
 };
