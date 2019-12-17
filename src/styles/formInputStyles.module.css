@@ -45,3 +45,8 @@
   height: 5vh;
   fill: grey;
 }
+
+.attachmentButtonsWrap {
+  display: flex;
+  flex-grow: 2;
+}
