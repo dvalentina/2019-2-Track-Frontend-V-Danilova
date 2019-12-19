@@ -177,7 +177,7 @@ export default function MessageForm(props) {
 						},
 					);
 				});
-			};	
+			};
 		}
 
 		async function getMedia() {
