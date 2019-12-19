@@ -4,13 +4,14 @@ import styles from '../styles/messageFormStyles.module.css';
 import FormInput from './FormInput.js';
 import MessageBlock from './MessageBlock.js';
 
+let mediaRecorder = null;
+
 export default function MessageForm(props) {
 	const { chatId } = useParams();
 	const [messages, setMessages] = useState(initMessages());
 	const [inputValue, setInputValue] = useState('');
 	const [isAttachPressed, setIsPressed] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
-	const [mediaRecorder, setMediaRecorder] = useState();
 
 	function handleChange(event) {
 		setInputValue(event.target.value);
@@ -145,41 +146,38 @@ export default function MessageForm(props) {
 		handleAttachImage(event, files);
 	}
 
-	
-
-	function handleStopRecordingClick() {
-		setIsRecording(false);
-		mediaRecorder.stop();
-	}
-
 	function handleAttachAudio() {
 		function recordAudio(stream) {
-			setMediaRecorder(new MediaRecorder(stream));
-	
-			mediaRecorder.start();
-			setIsRecording(true);
-	
-			let chunks = [];
-			mediaRecorder.addEventListener('dataavailable', (event) => {
-				chunks.push(event.data);
-			});
-			mediaRecorder.addEventListener('stop', () => {
-				const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
-				chunks = [];
-				const audioURL = URL.createObjectURL(blob);
-				const newMessage = createMessage(audioURL, 'audio');
-				addMessage(newMessage);
-				
-				const data = new FormData();
-				data.append('audio', blob);
-				fetch(
-					'https://tt-front.now.sh/upload',
-					{
-						method: 'POST',
-						body: data,
-					},
-				);
-			});
+			if (isRecording) {
+				mediaRecorder.stop();
+				setIsRecording(false);
+			} else {
+				mediaRecorder = new MediaRecorder(stream);
+				mediaRecorder.start();
+				setIsRecording(true);
+
+				let chunks = [];
+				mediaRecorder.addEventListener('dataavailable', (event) => {
+					chunks.push(event.data);
+				});
+				mediaRecorder.addEventListener('stop', () => {
+					const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
+					chunks = [];
+					const audioURL = URL.createObjectURL(blob);
+					const newMessage = createMessage(audioURL, 'audio');
+					addMessage(newMessage);
+					
+					const data = new FormData();
+					data.append('audio', blob);
+					fetch(
+						'https://tt-front.now.sh/upload',
+						{
+							method: 'POST',
+							body: data,
+						},
+					);
+				});
+			};	
 		}
 
 		async function getMedia() {
@@ -227,7 +225,6 @@ export default function MessageForm(props) {
 				isAttachPressed={isAttachPressed}
 				handleAttach={handleAttach}
 				isRecording={isRecording}
-				handleStopRecordingClick={handleStopRecordingClick}
 			/>
 		</div>
 	);
