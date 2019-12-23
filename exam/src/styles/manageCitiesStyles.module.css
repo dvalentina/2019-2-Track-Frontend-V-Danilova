@@ -1,0 +1,30 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    height: 88vh;
+    width: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgb(231, 231, 231);
+}
+
+.addCityButton {
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+    right: 6vh;
+    bottom: 6vh;
+    background-color: rgb(61, 61, 207);
+    fill: white;
+    height: 12vh;
+    width: 12vh;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.addCityButtonSvg {
+    height: 6vh;
+    width: 6vh;
+}
