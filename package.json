@@ -59,8 +59,6 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "format": "prettier --write '**/*.{js,jsx,json,md}'",
-    "format:changed": "pretty-quick",
-    "format:staged": "pretty-quick --staged",
     "lint": "npm run lint:js && npm run lint:dup",
     "lint:fix": "eslint --fix",
     "lint:check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
@@ -76,7 +74,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run format:staged"
+      "pre-commit": "npm run lint"
     }
   },
   "engines": {
