@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import styles from '../styles/chatListStyles.module.css';
 import { ReactComponent as CreateChatButtonSvg } from '../assets/pencil.svg';
 import ChatBlock from './ChatBlock.js';
+import TrashChatBlock from './TrashChatBlock.js';
 
 export default function ChatList(props) {
 	const [chats, setChats] = useState(initChats());
+	const trashChat = <TrashChatBlock name="Trash Chat" lastMessage="last message" time="00:00" />;
 
 	function initChats() {
 		const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
@@ -26,13 +28,13 @@ export default function ChatList(props) {
 			newChat.id = chatHistory[i].id;
 
 			initialChats.push(
-				<ChatBlock 
+				<ChatBlock
 					name={newChat.name}
 					lastMessage={newChat.lastMessage}
 					time={newChat.time}
 					id={newChat.id}
 					key={newChat.key}
-				/>
+				/>,
 			);
 		}
 		return initialChats;
@@ -55,18 +57,18 @@ export default function ChatList(props) {
 					time={newChat.time}
 					key={newChat.key}
 					id={newChat.id}
-				/>
-			)
+				/>,
+			),
 		);
 		addChatToLocalStorage(newChat);
-	}
+	};
 
 	function addChatToLocalStorage(newChat) {
 		let chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
 		if (chatHistory === '') {
 			chatHistory = [];
 		}
-		chatHistory.push(newChat);  
+		chatHistory.push(newChat);
 		localStorage.setItem('chats', JSON.stringify(chatHistory));
 	}
 
@@ -83,13 +85,10 @@ export default function ChatList(props) {
 	return (
 		<div>
 			<div className={styles.chatListSpace}>
+				{trashChat}
 				{reversedChats}
 			</div>
-			<button
-				type='button'
-				className={styles.createChatButton}
-				onClick={handleCreateChatClick}
-			>
+			<button type="button" className={styles.createChatButton} onClick={handleCreateChatClick}>
 				<CreateChatButtonSvg className={styles.createChatButtonSvg} />
 			</button>
 		</div>

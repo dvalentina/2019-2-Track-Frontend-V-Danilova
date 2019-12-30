@@ -1,0 +1,135 @@
+.otherMessageBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.otherResult {
+  position: relative;
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  width: auto;
+  height: auto;
+  min-width: 40%;
+  max-width: 70%;
+  min-height: 3vh;
+  border: 1px solid grey;
+  border-radius: 1vh;
+  margin: 1vh 1vh 1vh 5vh;
+  padding: 1vh;
+}
+.otherResult:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -4.2vh;
+  bottom: 1vh;
+  border: 2vh solid;
+  border-color: transparent grey grey transparent;
+}
+.otherResult:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -3.9vh;
+  bottom: 1.1vh;
+  border: 2vh solid;
+  border-color: transparent white white transparent;
+}
+
+.myMessageBlock {
+  display: flex;
+  flex-direction: column;
+  animation: myslidein 1s ease-out 1;
+}
+
+@keyframes myslidein {
+  0% {
+    margin-left: 100%;
+    width: 210%;
+  }
+  100% {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+.myResult {
+  position: relative;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: column;
+  background-color: rgb(212, 197, 214);
+  color: black;
+  width: auto;
+  height: auto;
+  min-width: 40%;
+  max-width: 70%;
+  min-height: 3vh;
+  border: 1px solid #8b008b;
+  border-radius: 1vh;
+  margin: 1vh 5vh 1vh 1vh;
+  padding: 1vh;
+}
+.myResult:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: -4.2vh;
+  bottom: 1vh;
+  border: 2vh solid;
+  border-color: transparent transparent #8b008b #8b008b;
+}
+.myResult:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: -3.9vh;
+  bottom: 1.1vh;
+  border: 2vh solid;
+  border-color: transparent transparent #d4c5d6 #d4c5d6;
+}
+
+.authorName {
+  display: flex;
+  align-self: flex-start;
+  font-size: 3vh;
+  color: #8e24aa;
+  font-weight: bold;
+  padding: 1vh;
+}
+
+.textContent {
+  display: flex;
+  align-self: flex-start;
+  font-size: 3vh;
+  color: black;
+  padding: 1vh 1.2vh;
+  line-height: 1;
+  word-break: break-all;
+}
+
+.imageContent {
+  max-width: 80%;
+  max-height: 80vh;
+  margin: 3vh 0vh 3vh 3vh;
+}
+
+.audioContent {
+  width: 80%;
+  min-width: 40vh;
+}
+
+.time {
+  display: flex;
+  align-self: flex-end;
+  font-size: 2vh;
+  color: gray;
+  padding: 0.5vh;
+}

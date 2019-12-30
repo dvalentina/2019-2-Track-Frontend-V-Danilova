@@ -1,17 +1,52 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styles from '../styles/messageFormStyles.module.css';
 import FormInput from './FormInput.js';
-import MessageBlock from './MessageBlock.js';
+import TrashMessageBlock from './TrashMessageBlock.js';
 
 let mediaRecorder = null;
 
-export default function MessageForm(props) {
-	const { chatId } = useParams();
-	const [messages, setMessages] = useState(initMessages());
+export default function TrashMessageForm({ userName, userID }) {
+	const [messages, setMessages] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [isAttachPressed, setIsPressed] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
+	const API_URL = 'http://localhost:8000/chats/1/messages/';
+	console.log(userID);
+
+	const pollItems = () => {
+		fetch(`${API_URL}`)
+			.then((resp) => resp.json())
+			.then((data) => {
+				console.log(data);
+				console.log(userID);
+				const received = data.messages;
+				received.reverse();
+				const messagesArray = [];
+				if (messages.length < received.length) {
+					for (let i = messages.length; i < received.length; i += 1) {
+						messagesArray.push(
+							<TrashMessageBlock
+								userID={userID}
+								authorName={received[i].user}
+								content={received[i].content}
+								time={received[i].added_at}
+								id={i}
+								key={i}
+								type="text"
+							/>
+						);
+					}
+				}
+				setMessages(messages.concat(messagesArray));
+			});
+	};
+
+	const t = setInterval(() => pollItems(), 60000);
+
+	setTimeout(() => {
+		clearInterval(t);
+	}, 600000);
 
 	function handleChange(event) {
 		setInputValue(event.target.value);
@@ -23,16 +58,16 @@ export default function MessageForm(props) {
 			return;
 		}
 		const newMessage = createMessage(inputValue, 'text');
-		addMessage(newMessage);
-		addMessageToLocalStorage(newMessage);
+		postMessage(newMessage);
 		setInputValue('');
 	}
 
 	function createMessage(content, type) {
+		console.log(userName);
 		const submitTime = new Date().toTimeString().slice(0, 5);
 		const { length } = messages;
 		const message = {
-			authorName: 'Me',
+			authorName: userName,
 			content,
 			time: submitTime,
 			id: length,
@@ -45,7 +80,7 @@ export default function MessageForm(props) {
 	function addMessage(newMessage) {
 		setMessages(
 			messages.concat(
-				<MessageBlock
+				<TrashMessageBlock
 					authorName={newMessage.authorName}
 					content={newMessage.content}
 					time={newMessage.time}
@@ -57,36 +92,21 @@ export default function MessageForm(props) {
 		);
 	}
 
-	function initMessages() {
-		const initialMessages = [];
-		const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
-		const currentChat = chatHistory[chatId];
-		const messagesFromStorage = currentChat.messages;
-
-		for (let i = 0; i < messagesFromStorage.length; i += 1) {
-			const newMessage = messagesFromStorage[i];
-			initialMessages.push(
-				<MessageBlock
-					authorName={newMessage.authorName}
-					content={newMessage.content}
-					time={newMessage.time}
-					id={newMessage.id}
-					key={newMessage.key}
-					type={newMessage.type}
-				/>,
-			);
-		}
-		return initialMessages;
-	}
-
-	function addMessageToLocalStorage(newMessage) {
-		const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
-		const currentChat = chatHistory[chatId];
-		if (currentChat.messages === '') {
-			currentChat.messages = [];
-		}
-		currentChat.messages.push(newMessage);
-		localStorage.setItem('chats', JSON.stringify(chatHistory));
+	function postMessage(newMessage) {
+		const chatID = 1;
+		const messageData = new FormData();
+		messageData.append('user', Number(userID));
+		messageData.append('chat', chatID);
+		messageData.append('content', newMessage.content);
+		fetch('http://localhost:8000/chats/send_message/', {
+			method: 'POST',
+			body: messageData,
+		})
+			.then((resp) => resp.json())
+			.then((data) => {
+				console.log(userID);
+				console.log(data);
+			});
 	}
 
 	function handleAttach() {
@@ -99,8 +119,7 @@ export default function MessageForm(props) {
 				const { latitude, longitude } = position.coords;
 				const geoURL = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
 				const newMessage = createMessage(geoURL, 'text');
-				addMessage(newMessage);
-				addMessageToLocalStorage(newMessage);
+				postMessage(newMessage);
 			};
 			const geoError = (error) => {
 				console.log(error.message);
@@ -185,6 +204,7 @@ export default function MessageForm(props) {
 				console.log(error.message);
 			}
 		}
+
 		getMedia();
 	}
 
@@ -218,3 +238,8 @@ export default function MessageForm(props) {
 		</div>
 	);
 }
+
+TrashMessageForm.propTypes = {
+	userName: PropTypes.string.isRequired,
+	userID: PropTypes.number.isRequired,
+};
