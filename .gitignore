@@ -148,3 +148,4 @@ jest_*/
 .jscpd/
 .idea
 .vscode
+.storybook/
