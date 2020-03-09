@@ -122,3 +122,5 @@ Bio.propTypes = {
 	handleBioChange: PropTypes.func.isRequired,
 	bio: PropTypes.string.isRequired,
 };
+
+export { ChangeAvatar };

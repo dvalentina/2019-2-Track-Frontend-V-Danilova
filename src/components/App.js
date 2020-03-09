@@ -14,7 +14,7 @@ export default class App extends React.Component {
 		const nameUser = `User N${window.name.slice(0, 2)}${window.name.slice(3, 5)}${window.name.slice(6, 8)}`;
 		let userID;
 		const userData = new FormData();
-		userData.append('username', nameUser)
+		userData.append('username', nameUser);
 		(async () => {
 			await fetch('http://localhost:8000/users/create/', {
 				method: 'POST',

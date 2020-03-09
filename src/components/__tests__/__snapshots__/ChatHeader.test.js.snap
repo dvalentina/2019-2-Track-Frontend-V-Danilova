@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`menu button renders correctly 1`] = `
+<div
+  className="userAvatar"
+>
+  <svg
+    className="userAvatarSvg"
+  >
+    user.svg
+  </svg>
+</div>
+`;
+
+exports[`options button renders correctly 1`] = `
+<button
+  className="headerButton"
+  type="button"
+>
+  <svg
+    className="buttonSvg"
+  >
+    options.svg
+  </svg>
+</button>
+`;
+
+exports[`search button renders correctly 1`] = `
+<button
+  className="headerButton"
+  type="button"
+>
+  <svg
+    className="buttonSvg"
+  >
+    search.svg
+  </svg>
+</button>
+`;

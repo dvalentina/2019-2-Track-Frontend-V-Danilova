@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`change avatar button renders correctly 1`] = `
+<button
+  className="changeAvatar"
+  type="button"
+>
+  <svg
+    className="changeAvatarSvg"
+  >
+    camera.svg
+  </svg>
+</button>
+`;

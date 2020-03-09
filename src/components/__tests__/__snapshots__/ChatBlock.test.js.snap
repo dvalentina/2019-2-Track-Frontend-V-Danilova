@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`chat avatar renders correctly 1`] = `
+<div
+  className="chatAvatar"
+>
+  <svg
+    className="chatAvatarSvg"
+  >
+    user.svg
+  </svg>
+</div>
+`;
+
+exports[`chat delivery indicator renders correctly 1`] = `
+<div
+  className="chatDeliveryIndicator"
+>
+  <svg
+    className="chatDeliveryIndicatorSvg"
+  >
+    tick.svg
+  </svg>
+</div>
+`;

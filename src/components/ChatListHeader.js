@@ -20,6 +20,7 @@ function MenuButton(props) {
 		</button>
 	);
 }
+
 function ChatListTitle(props) {
 	return (
 		<p className={styles.chatListTitle}>Messenger</p>
@@ -33,3 +34,5 @@ function SearchButton(props) {
 		</button>
 	);
 }
+
+export { MenuButton, ChatListTitle, SearchButton };

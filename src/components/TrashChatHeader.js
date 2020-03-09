@@ -52,3 +52,5 @@ function ChatTitle(props) {
 		</div>
 	);
 }
+
+export { ChatTitle, OptionsButton, SearchButton, UserAvatar };
