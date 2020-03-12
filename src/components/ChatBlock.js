@@ -85,3 +85,5 @@ function ChatDeliveryIndicator(props) {
 		</div>
 	);
 }
+
+export { ChatDeliveryIndicator, ChatAvatar };

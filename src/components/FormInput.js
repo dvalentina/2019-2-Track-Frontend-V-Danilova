@@ -138,3 +138,5 @@ function AudioButtonSvg({ isRecording }) {
 AudioButtonSvg.propTypes = {
 	isRecording: PropTypes.bool.isRequired,
 };
+
+export { AudioButtonSvg };

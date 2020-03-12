@@ -32,3 +32,5 @@ function SaveButton(props) {
 		</button>
 	);
 }
+
+export { EditProfileTitle, SaveButton };

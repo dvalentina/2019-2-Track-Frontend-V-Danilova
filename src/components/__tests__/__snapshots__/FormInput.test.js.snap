@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`audio button svg with prop isRecording=false renders correctly 1`] = `
+<svg
+  className="attachmentButtonSvg"
+>
+  microphone.svg
+</svg>
+`;
+
+exports[`audio button svg with prop isRecording=true renders correctly 1`] = `
+<svg
+  className="attachmentButtonSvg"
+>
+  pause.svg
+</svg>
+`;

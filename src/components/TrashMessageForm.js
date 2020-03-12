@@ -42,11 +42,11 @@ export default function TrashMessageForm({ userName, userID }) {
 			});
 	};
 
-	const t = setInterval(() => pollItems(), 60000);
+	const t = setInterval(() => pollItems(), 3000);
 
 	setTimeout(() => {
 		clearInterval(t);
-	}, 600000);
+	}, 30000);
 
 	function handleChange(event) {
 		setInputValue(event.target.value);

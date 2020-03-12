@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`edit profile title renders correctly 1`] = `
+<p
+  className="editProfileTitle"
+>
+  Edit Profile
+</p>
+`;
+
+exports[`save button renders correctly 1`] = `
+<button
+  className="headerButton"
+  type="button"
+>
+  <svg
+    className="buttonSvg"
+  >
+    tick.svg
+  </svg>
+</button>
+`;
