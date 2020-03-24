@@ -10,7 +10,7 @@ export default function TrashChatHeader(props) {
 	return (
 		<div className={styles.chatHeader}>
 			<Link to="/" className={styles.headerButton}>
-				<ReturnButtonSvg className={styles.buttonSvg} />
+				<ReturnButtonSvg id='return' className={styles.buttonSvg} />
 			</Link>
 			<UserAvatar />
 			<ChatTitle />

@@ -22,6 +22,7 @@ export default function FormInput({
 		<form
 			className={styles.formInput} 
 			onSubmit={handleSubmit}
+			id="send_message"
 		>
 			<input
 				type="text"
