@@ -1,26 +1,25 @@
 import 'expect-puppeteer';
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
-
-const path = require('path');
 
 describe('app', () => {
 	beforeAll(async () => {
 		await page.goto('http://localhost:3000/');
-	}, 60000);
+		await page.waitForSelector('[id="create_chat"');
+	}, 20000);
 
-	it('should check the page', async () => {
+	test('should check the page', async () => {
 		await expect(page).toMatch('Messenger');
 	});
 
-	it('should open trash chat and return to the chatlist screen', async () => {
+	test('should open trash chat and return to the chatlist screen', async () => {
+		await page.waitForSelector('[href="#/trash_chat"]');
 		await page.click('[href="#/trash_chat"]');
 		await expect(page).toMatch('trash chat status');
 		await page.click('[id="return"]');
 		await expect(page).toMatch('Messenger');
 	});
 
-	it('should create a new chat, open it and send a message', async () => {
+	test('should create a new chat, open it and send a message', async () => {
+		await page.waitForSelector('[id="create_chat"');
 		await page.click('[id="create_chat"');
 		await expect(page).toMatch('User Name #0');
 		await page.click('[data-id="0"]');

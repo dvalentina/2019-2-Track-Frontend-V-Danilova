@@ -32,7 +32,6 @@
     "@wemake-services/stylelint-config-scss": "^0.2.2",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-styled-components": "^1.10.7",
-    "check-engine": "^1.8.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -70,7 +69,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start -- --watchAll=false",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "format": "prettier --write '**/*.{js,jsx,json,md}'",
@@ -82,8 +81,7 @@
     "lint:css": "stylelint 'src/**/*.{scss,css}' && stylelint --rd 'src/**/*.{scss,css}'",
     "lint:dup": "jscpd -g --threshold=1 tests docker",
     "clean": "rm -rf build",
-    "test": "npm run test:engine && npm run lint && npm run test:unit -- --watchAll=false && npm run test:endtoend",
-    "test:engine": "check-engine",
+    "test": "npm run lint && npm run test:unit && npm run test:endtoend",
     "test:sec": "npm audit || true",
     "test:unit": "react-scripts test",
     "test:endtoend": "jest -c endtoend/jest.config.js",
@@ -95,10 +93,6 @@
     "hooks": {
       "pre-commit": "npm run lint"
     }
-  },
-  "engines": {
-    "npm": ">=6",
-    "node": ">=8"
   },
   "main": "convertBytesToHuman.js",
   "directories": {
