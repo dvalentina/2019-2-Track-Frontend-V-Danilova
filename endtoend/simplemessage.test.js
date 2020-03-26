@@ -19,7 +19,7 @@ describe('app', () => {
 	});
 
 	test('should create a new chat, open it and send a message', async () => {
-		await page.waitForSelector('[id="create_chat"');
+		await page.waitForSelector('[id="create_chat"]');
 		await page.click('[id="create_chat"');
 		await expect(page).toMatch('User Name #0');
 		await page.click('[data-id="0"]');
