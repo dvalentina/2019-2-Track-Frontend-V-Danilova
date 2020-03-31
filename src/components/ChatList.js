@@ -88,7 +88,7 @@ export default function ChatList(props) {
 				{trashChat}
 				{reversedChats}
 			</div>
-			<button type="button" className={styles.createChatButton} onClick={handleCreateChatClick}>
+			<button type="button" id="create_chat" className={styles.createChatButton} onClick={handleCreateChatClick}>
 				<CreateChatButtonSvg className={styles.createChatButtonSvg} />
 			</button>
 		</div>
