@@ -121,7 +121,7 @@ export default function MessageForm(props) {
 				addMessageToLocalStorage(newMessage);
 			};
 			const geoError = (error) => {
-				console.log(error.message);
+				// console.log(error.message);
 			};
 			const geoOptions = {
 				enableHighAccuracy: true,
@@ -131,7 +131,7 @@ export default function MessageForm(props) {
 			navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
 			setIsPressed(false);
 		} else {
-			alert('Geolocation is not available');
+			// alert('Geolocation is not available');
 		}
 	}
 
@@ -200,7 +200,7 @@ export default function MessageForm(props) {
 				stream = await navigator.mediaDevices.getUserMedia(constraints);
 				recordAudio(stream);
 			} catch (error) {
-				console.log(error.message);
+				// console.log(error.message);
 			}
 		}
 		getMedia();

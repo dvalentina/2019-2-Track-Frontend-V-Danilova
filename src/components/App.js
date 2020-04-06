@@ -22,7 +22,7 @@ export default class App extends React.Component {
 			})
 				.then((resp) => resp.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					this.setState({ userID: data.id });
 				});
 		})();
@@ -34,8 +34,6 @@ export default class App extends React.Component {
 
 	render() {
 		const { nameUser, userID } = this.state;
-		console.log(nameUser);
-		console.log(userID);
 		return (
 			<HashRouter>
 				<Route exact path="/">
