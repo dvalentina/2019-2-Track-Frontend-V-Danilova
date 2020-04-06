@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from '../styles/chatBlockStyles.module.css';
-import { ReactComponent as ChatAvatarSvg } from '../assets/user.svg';
-import { ReactComponent as DeliveryIndicatorSvg } from '../assets/tick.svg';
+import { ReactComponent as ChatAvatarSvg } from '../assets/icons/user.svg';
+import { ReactComponent as DeliveryIndicatorSvg } from '../assets/icons/tick.svg';
 
 export default function TrashChatBlock({ lastMessage, name, time }) {
 	return (

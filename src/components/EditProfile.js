@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../styles/editProfileStyles.module.css';
-import { ReactComponent as ChangeAvatarSvg } from '../assets/camera.svg';
+import { ReactComponent as ChangeAvatarSvg } from '../assets/icons/camera.svg';
 
 export default function EditProfile(props) {
 	const [fullName, setFullName] = useState('');

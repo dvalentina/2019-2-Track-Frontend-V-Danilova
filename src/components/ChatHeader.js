@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from '../styles/chatHeaderStyles.module.css';
-import { ReactComponent as UserAvatarSvg } from '../assets/user.svg';
-import { ReactComponent as ReturnButtonSvg } from '../assets/return.svg';
-import { ReactComponent as SearchButtonSvg } from '../assets/search.svg';
-import { ReactComponent as OptionsButtonSvg } from '../assets/options.svg';
+import { ReactComponent as UserAvatarSvg } from '../assets/icons/user.svg';
+import { ReactComponent as ReturnButtonSvg } from '../assets/icons/return.svg';
+import { ReactComponent as SearchButtonSvg } from '../assets/icons/search.svg';
+import { ReactComponent as OptionsButtonSvg } from '../assets/icons/options.svg';
 
 export default function ChatHeader(props) {
 	return (

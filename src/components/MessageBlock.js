@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../styles/messageBlockStyles.module.css';
+import emojiStyles from '../styles/emojiStyles.module.css';
 
 export default function MessageBlock({ authorName, content, time, type }) {
 	return (
@@ -26,8 +27,35 @@ MessageBlock.propTypes = {
 
 function Content({ type, content }) {
 	if (type === 'text') {
+		const regExp = /:.*?:/;
+		if (!regExp.test(content)) {
+			return(
+				<div className={styles.textContent}>{content}</div>
+			);
+		}
+		const message = [];
+		let text = content;
+		while (regExp.test(text)) {
+			const emoji = text.match(regExp);
+			const index = text.indexOf(emoji[0]);
+			text = text.replace(regExp, ' ');
+			const firstPart = text.slice(0, index);
+			const secondPart = text.slice(index);
+			const emojiName = emoji[0].slice(1, -1);
+			message.push(
+				<p>{firstPart}</p>
+			);
+			const className = `${emojiStyles.emojiImg} ${emojiStyles[emojiName]}`;
+			message.push(
+				<div className={className} />
+			);
+			text = secondPart;
+		}
+		message.push(
+			<p>{text}</p>
+		);
 		return(
-			<div className={styles.textContent}>{content}</div>
+			<div className={styles.textContent}>{message}</div>
 		);
 	}
 	if (type === 'image') {
