@@ -47,10 +47,12 @@ export default class App extends React.Component {
 			userID,
 			peer,
 			foreignInputValue: '',
+			webRTCMessages: [],
 		};
 
 		this.handleForeignIDSubmit = this.handleForeignIDSubmit.bind(this);
 		this.handleForeignIDInputChange = this.handleForeignIDInputChange.bind(this);
+		this.handleWebRTCMessagesChange = this.handleWebRTCMessagesChange.bind(this);
 	}
 
 	handleForeignIDInputChange(event) {
@@ -67,6 +69,11 @@ export default class App extends React.Component {
 		this.setState(() => ({ myPeerConn: peer.connect(foreignInputValue) }));
 	}
 
+	handleWebRTCMessagesChange(newMessage) {
+		const { webRTCMessages } = this.state;
+		this.setState({ webRTCMessages: webRTCMessages.concat(newMessage)});
+	}
+
 	render() {
 		const {
 			nameUser,
@@ -76,6 +83,8 @@ export default class App extends React.Component {
 			foreignPeerID,
 			myPeerConn,
 			foreignInputValue,
+			webRTCMessages,
+			handleWebRTCMessagesChange,
 		} = this.state;
 
 		return (
@@ -108,6 +117,8 @@ export default class App extends React.Component {
 						myPeerID={myPeerID}
 						myPeerConn={myPeerConn}
 						foreignPeerConn={foreignPeerConn}
+						webRTCMessages={webRTCMessages}
+						handleWebRTCMessagesChange={handleWebRTCMessagesChange}
 					/>
 				</Route>
 			</HashRouter>

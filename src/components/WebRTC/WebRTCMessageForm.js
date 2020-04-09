@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable react/forbid-prop-types */
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/webRTCMessageFormStyles.module.css';
 import FormInput from '../FormInput.js';
-import MessageBlock from '../MessageBlock.js';
+import MessageBlock from './WebRTCMessageBlock.js';
 
 let mediaRecorder = null;
 
@@ -12,12 +13,14 @@ export default function WebRTCMessageForm({
 	myPeerConn,
 	myPeerID,
 	foreignPeerConn,
+	webRTCMessages,
+	handleWebRTCMessagesChange,
 }) {
-	const [messages, setMessages] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [isAttachPressed, setIsPressed] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
 	const [isEmojiButtonPressed, setIsEmojiButtonPressed] = useState(false);
+
 
 	function handleChange(event) {
 		setInputValue(event.target.value);
@@ -39,31 +42,30 @@ export default function WebRTCMessageForm({
 
 	function createMessage(content, type) {
 		const submitTime = new Date().toTimeString().slice(0, 5);
-		const { length } = messages;
 		const message = {
 			authorName: myPeerID,
 			content,
 			time: submitTime,
-			id: length,
-			key: length,
 			type,
 		};
 		return message;
 	}
 
 	function addMessage(newMessage) {
-		setMessages(
-			messages.concat(
+		const { length } = webRTCMessages;
+		(() => (handleWebRTCMessagesChange(
+			webRTCMessages.concat(
 				<MessageBlock
+					myPeerID={myPeerID}
 					authorName={newMessage.authorName}
 					content={newMessage.content}
 					time={newMessage.time}
-					id={newMessage.id}
-					key={newMessage.key}
+					id={length}
+					key={length}
 					type={newMessage.type}
-				/>,
-			),
-		);
+				/>
+			)
+		)))();
 	}
 
 	function handleAttach() {
@@ -195,9 +197,9 @@ export default function WebRTCMessageForm({
 				});
 			});
 		}
-	}, [foreignPeerConn, addMessage]);
+	});
 
-	const reversedMessages = reverseArray(messages);
+	const reversedMessages = reverseArray(webRTCMessages);
 
 	return (
 		<div>
@@ -224,4 +226,6 @@ export default function WebRTCMessageForm({
 
 WebRTCMessageForm.propTypes = {
 	myPeerID: PropTypes.string.isRequired,
+	webRTCMessages: PropTypes.array.isRequired,
+	handleWebRTCMessagesChange: PropTypes.func.isRequired,
 };

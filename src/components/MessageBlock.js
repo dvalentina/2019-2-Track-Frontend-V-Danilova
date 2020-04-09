@@ -88,3 +88,5 @@ function Content({ type, content }) {
 		);
 	}
 }
+
+export { Content };
