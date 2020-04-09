@@ -36,7 +36,7 @@ export default class App extends React.Component {
 		// для работы peer webrtc
 		const peer = new Peer();
 		peer.on('open', (id) => {
-			this.setState({ myPeerID: id });
+			this.setState(() => ({ myPeerID: id }));
 		});
 		peer.on('connection', (conn) => {
 			this.setState(() => ({foreignPeerConn: conn}));
@@ -61,16 +61,10 @@ export default class App extends React.Component {
 		const {
 			peer,
 			foreignInputValue,
-			foreignPeerID,
 		} = this.state;
-		
 		event.preventDefault();
-		this.setState({
-			foreignPeerID: foreignInputValue,
-			foreignInputValue: '',
-		});
-		const myPeerConn = peer.connect(foreignPeerID);
-		this.setState({ myPeerConn });
+		this.setState(() => ({ foreignPeerID: foreignInputValue }));
+		this.setState(() => ({ myPeerConn: peer.connect(foreignInputValue) }));
 	}
 
 	render() {

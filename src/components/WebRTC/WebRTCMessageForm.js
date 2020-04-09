@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/webRTCMessageFormStyles.module.css';
@@ -221,7 +223,5 @@ export default function WebRTCMessageForm({
 }
 
 WebRTCMessageForm.propTypes = {
-	myPeerConn: PropTypes.string.isRequired,
-	foreignPeerConn: PropTypes.string.isRequired,
 	myPeerID: PropTypes.string.isRequired,
 };

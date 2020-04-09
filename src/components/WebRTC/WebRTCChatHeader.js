@@ -20,7 +20,7 @@ export default function WebRTCChatHeader({ myPeerID }) {
 }
 
 WebRTCChatHeader.propTypes = {
-	myPeerID: PropTypes.number.isRequired,
+	myPeerID: PropTypes.string.isRequired,
 };
 
 function ChatTitle({ myPeerID }) {
@@ -34,5 +34,5 @@ function ChatTitle({ myPeerID }) {
 }
 
 ChatTitle.propTypes = {
-	myPeerID: PropTypes.number.isRequired,
+	myPeerID: PropTypes.string.isRequired,
 };
