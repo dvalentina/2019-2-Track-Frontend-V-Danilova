@@ -3,10 +3,12 @@ import styles from '../styles/chatListStyles.module.css';
 import { ReactComponent as CreateChatButtonSvg } from '../assets/icons/pencil.svg';
 import ChatBlock from './ChatBlock.js';
 import TrashChatBlock from './TrashChatBlock.js';
+import WebRTCChatBlock from './WebRTC/WebRTCChatBlock.js';
 
 export default function ChatList(props) {
 	const [chats, setChats] = useState(initChats());
-	const trashChat = <TrashChatBlock name="Trash Chat" lastMessage="last message" time="00:00" />;
+	const trashChat = <TrashChatBlock name='Trash Chat' lastMessage='last message' time='00:00' />;
+	const webRTCChat = <WebRTCChatBlock name='WebRTC Chat' lastMessage='last message' time='00:00' />;
 
 	function initChats() {
 		const chatHistory = JSON.parse(localStorage.getItem('chats')) || [];
@@ -86,6 +88,7 @@ export default function ChatList(props) {
 		<div>
 			<div className={styles.chatListSpace}>
 				{trashChat}
+				{webRTCChat}
 				{reversedChats}
 			</div>
 			<button type="button" id="create_chat" className={styles.createChatButton} onClick={handleCreateChatClick}>
