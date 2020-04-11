@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from './Header.js';
 import TrashChatHeader from './TrashChatHeader.js';
 import MessageForm from './MessageForm.js';
@@ -67,4 +68,9 @@ function MessengerScreen({ screen }) {
 	if (screen === 'edit profile') {
 		return <EditProfile />;
 	}
+	return null;
 }
+
+MessengerScreen.propTypes = {
+	screen: PropTypes.string.isRequired,
+};

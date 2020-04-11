@@ -63,4 +63,10 @@ function Content({ type, content }) {
 			</audio>
 		);
 	}
+	return null;
 }
+
+Content.propTypes = {
+	type: PropTypes.string.isRequired,
+	content: PropTypes.string.isRequired,
+};
