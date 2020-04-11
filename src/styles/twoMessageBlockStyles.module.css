@@ -44,18 +44,6 @@
 .myMessageBlock {
   display: flex;
   flex-direction: column;
-  animation: myslidein 1s ease-out 1;
-}
-
-@keyframes myslidein {
-  0% {
-    margin-left: 100%;
-    width: 210%;
-  }
-  100% {
-    margin-left: 0%;
-    width: 100%;
-  }
 }
 
 .myResult {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../styles/WebRTCInputIDStyles.module.css';
+import styles from '../../styles/webRTCInputIDStyles.module.css';
 
 export default function WebRTCInputID({
 	handleForeignIDSubmit,

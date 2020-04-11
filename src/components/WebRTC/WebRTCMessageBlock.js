@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import styles from '../../styles/twoMessageBlockStyles.module.css';
 import { Content } from '../MessageBlock.js';
 
-export default function WebRTCMessageBlock({ myPeerID, authorName, content, time, type, id, key }) {
+export default function WebRTCMessageBlock({ myPeerID, authorName, content, time, type, id }) {
 	if (myPeerID === authorName) {
 		return (
-			<div className={styles.myMessageBlock} id={id} key={key} >
+			<div className={styles.myMessageBlock} id={id} key={id} >
 				<div className={styles.myResult}>
 					<div className={styles.authorName}>User #{authorName}</div>
 					<Content type={type} content={content} />
@@ -16,7 +16,7 @@ export default function WebRTCMessageBlock({ myPeerID, authorName, content, time
 		);
 	}
 	return (
-		<div className={styles.otherMessageBlock} id={id} key={key} >
+		<div className={styles.otherMessageBlock} id={id} key={id} >
 			<div className={styles.otherResult}>
 				<div className={styles.authorName}>User #{authorName}</div>
 				<Content type={type} content={content} />
@@ -33,5 +33,4 @@ WebRTCMessageBlock.propTypes = {
 	type: PropTypes.string.isRequired,
 	myPeerID: PropTypes.string.isRequired,
 	id: PropTypes.number.isRequired,
-	key: PropTypes.number.isRequired,
 };

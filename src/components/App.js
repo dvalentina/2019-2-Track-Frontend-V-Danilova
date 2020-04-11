@@ -8,8 +8,8 @@ import TrashMessageForm from './TrashMessageForm.js';
 import ChatList from './ChatList.js';
 import EditProfile from './EditProfile.js';
 import WebRTCChatHeader from './WebRTC/WebRTCChatHeader.js';
-import WebRTCMessageForm from './WebRTC/WebRTCMessageForm';
-import WebRTCInputID from './WebRTC/WebRTCInputID';
+import MessagesContainer from './WebRTC/MessagesContainer.js';
+import WebRTCInputID from './WebRTC/WebRTCInputID.js';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -67,6 +67,7 @@ export default class App extends React.Component {
 		event.preventDefault();
 		this.setState(() => ({ foreignPeerID: foreignInputValue }));
 		this.setState(() => ({ myPeerConn: peer.connect(foreignInputValue) }));
+		this.setState(() => ({ foreignInputValue: '' }));
 	}
 
 	handleWebRTCMessagesChange(newMessage) {
@@ -83,8 +84,6 @@ export default class App extends React.Component {
 			foreignPeerID,
 			myPeerConn,
 			foreignInputValue,
-			webRTCMessages,
-			handleWebRTCMessagesChange,
 		} = this.state;
 
 		return (
@@ -113,12 +112,10 @@ export default class App extends React.Component {
 						foreignInputValue={foreignInputValue}
 						handleForeignIDInputChange={this.handleForeignIDInputChange}
 					/>
-					<WebRTCMessageForm
+					<MessagesContainer
 						myPeerID={myPeerID}
 						myPeerConn={myPeerConn}
 						foreignPeerConn={foreignPeerConn}
-						webRTCMessages={webRTCMessages}
-						handleWebRTCMessagesChange={handleWebRTCMessagesChange}
 					/>
 				</Route>
 			</HashRouter>
