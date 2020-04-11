@@ -94,7 +94,7 @@ function AttachmentButton({
 			</button>
 		);
 	}
-	return(
+	return (
 		<div className={styles.attachmentButtonsWrap}>
 			<EmojiKeyboard
 				isPressed={isEmojiButtonPressed}
@@ -155,11 +155,11 @@ AttachmentButton.propTypes = {
 
 function AudioButtonSvg({ isRecording }) {
 	if (isRecording) {
-		return(
+		return (
 			<StopRecordButtonSvg className={styles.attachmentButtonSvg} />
 		);
 	};
-	return(
+	return (
 		<StartRecordButtonSvg className={styles.attachmentButtonSvg} />
 	);
 }

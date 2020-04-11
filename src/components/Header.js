@@ -16,7 +16,7 @@ export default function Header({ screen }) {
 		);
 	}
 	if (screen === 'edit profile') {
-		return(
+		return (
 			<EditProfileHeader />
 		);
 	}
