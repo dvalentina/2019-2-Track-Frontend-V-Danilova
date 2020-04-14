@@ -17,4 +17,4 @@ deploy:
     branch:
       - master
       - devel
-      - sem2_hw5
+      - sem2_hw3
