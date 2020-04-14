@@ -52,8 +52,7 @@ export default function WebRTCMessageForm({
 	}
 
 	const addMessage = useCallback((newMessage) => {
-		const messagesSave = messages;
-		const { length } = messagesSave.length;
+		const { length } = messages.length;
 		const messageBlock = <WebRTCMessageBlock
 			myPeerID={myPeerID}
 			authorName={newMessage.authorName}
@@ -63,8 +62,7 @@ export default function WebRTCMessageForm({
 			key={length}
 			type={newMessage.type}
 		/>;
-		messagesSave.push(messageBlock);
-		setMessages(messagesSave);
+		setMessages(prevMessages => prevMessages.concat(messageBlock));
 	}, [myPeerID, setMessages, messages]);
 
 	function handleAttach() {
@@ -191,8 +189,8 @@ export default function WebRTCMessageForm({
 	useEffect(() => {
 		if (foreignPeerConn) {
 			foreignPeerConn.on('open', () => {
-				foreignPeerConn.on('data', (message) => {
-					addMessage(message);
+				foreignPeerConn.on('data', (newMessage) => {
+					addMessage(newMessage);
 				});
 			});
 		}
