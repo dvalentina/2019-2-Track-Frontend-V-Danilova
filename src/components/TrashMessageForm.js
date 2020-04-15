@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from '../styles/messageFormStyles.module.css';
 import FormInput from './FormInput.js';
 import TrashMessageBlock from './TrashMessageBlock.js';
+import { TRASH_CHAT_ID, TRASH_CHAT_MESSAGES_URL, SEND_MESSAGE_URL } from '../constants.js';
 
 let mediaRecorder = null;
 
@@ -11,10 +12,9 @@ export default function TrashMessageForm({ userName, userID }) {
 	const [inputValue, setInputValue] = useState('');
 	const [isAttachPressed, setIsPressed] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
-	const API_URL = 'http://localhost:8000/chats/1/messages/';
 
 	const pollItems = () => {
-		fetch(`${API_URL}`)
+		fetch(`${TRASH_CHAT_MESSAGES_URL}`)
 			.then((resp) => resp.json())
 			.then((data) => {
 				const received = data.messages;
@@ -89,12 +89,11 @@ export default function TrashMessageForm({ userName, userID }) {
 	}
 
 	function postMessage(newMessage) {
-		const chatID = 1;
 		const messageData = new FormData();
 		messageData.append('user', Number(userID));
-		messageData.append('chat', chatID);
+		messageData.append('chat', TRASH_CHAT_ID);
 		messageData.append('content', newMessage.content);
-		fetch('http://localhost:8000/chats/send_message/', {
+		fetch(SEND_MESSAGE_URL, {
 			method: 'POST',
 			body: messageData,
 		})

@@ -10,19 +10,22 @@ import EditProfile from './EditProfile.js';
 import WebRTCChatHeader from './WebRTC/WebRTCChatHeader.js';
 import MessagesContainer from './WebRTC/MessagesContainer.js';
 import WebRTCInputID from './WebRTC/WebRTCInputID.js';
+import CentrifugoChatHeader from './Centrifugo/CentrifugoChatHeader.js';
+import CentrifugoMessageForm from './Centrifugo/CentrifugoMessageForm.js';
+import { CREATE_USER_URL } from '../constants.js';
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 
-		// для работы polling trash chat
+		// создание уникального идентификатра для вкладки и создание пользователя
 		window.name = new Date().toTimeString().slice(0, 8);
 		const nameUser = `User N${window.name.slice(0, 2)}${window.name.slice(3, 5)}${window.name.slice(6, 8)}`;
 		let userID;
 		const userData = new FormData();
 		userData.append('username', nameUser);
 		(async () => {
-			await fetch('http://localhost:8000/users/create/', {
+			await fetch(CREATE_USER_URL, {
 				method: 'POST',
 				body: userData,
 			})
@@ -54,6 +57,8 @@ export default class App extends React.Component {
 		this.handleForeignIDInputChange = this.handleForeignIDInputChange.bind(this);
 		this.handleWebRTCMessagesChange = this.handleWebRTCMessagesChange.bind(this);
 	}
+
+	// handleForeignIDInputChange, handleForeignIDSubmit, handleWebRTCMessagesChange для работы webrtc чата
 
 	handleForeignIDInputChange(event) {
 		this.setState({ foreignInputValue: event.target.value });
@@ -117,6 +122,10 @@ export default class App extends React.Component {
 						myPeerConn={myPeerConn}
 						foreignPeerConn={foreignPeerConn}
 					/>
+				</Route>
+				<Route exact path="/centrifugo">
+					<CentrifugoChatHeader userName={nameUser} />
+					<CentrifugoMessageForm userName={nameUser} userID={userID} />
 				</Route>
 			</HashRouter>
 		);

@@ -1,21 +1,21 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/forbid-prop-types */
-
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../styles/webRTCMessageFormStyles.module.css';
+import styles from '../../styles/messageFormStyles.module.css';
 import FormInput from '../FormInput.js';
-import WebRTCMessageBlock from './WebRTCMessageBlock.js';
+import CentrifugoMessageBlock from './CentrifugoMessageBlock.js';
+import {
+	CENTRIFUGO_CHAT_ID,
+	CENTRIFUGO_WEBSOCKET_URL,
+	SEND_MESSAGE_URL,
+	CENTRIFUGO_MESSAGES_URL,
+} from '../../constants.js';
+
+const Centrifuge = require('centrifuge');
 
 let mediaRecorder = null;
 
-export default function WebRTCMessageForm({
-	myPeerConn,
-	myPeerID,
-	foreignPeerConn,
-	messages,
-	setMessages,
-}) {
+export default function CentrifugoMessageForm({ userName, userID }) {
+	const [messages, setMessages] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [isAttachPressed, setIsPressed] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
@@ -31,8 +31,7 @@ export default function WebRTCMessageForm({
 			return;
 		}
 		const newMessage = createMessage(inputValue, 'text');
-		addMessage(newMessage);
-		myPeerConn.send(newMessage);
+		postMessage(newMessage);
 		setInputValue('');
 		setIsEmojiButtonPressed(false);
 		setIsPressed(false);
@@ -41,28 +40,49 @@ export default function WebRTCMessageForm({
 
 	function createMessage(content, type) {
 		const submitTime = new Date().toTimeString().slice(0, 5);
+		const { length } = messages;
 		const message = {
-			authorName: myPeerID,
+			authorName: userName,
 			content,
 			time: submitTime,
+			id: length,
+			key: length,
 			type,
 		};
 		return message;
 	}
 
-	const addMessage = useCallback((newMessage) => {
-		const { length } = messages.length;
-		const messageBlock = <WebRTCMessageBlock
-			myPeerID={myPeerID}
-			authorName={newMessage.authorName}
-			content={newMessage.content}
-			time={newMessage.time}
-			id={length}
-			key={length}
-			type={newMessage.type}
-		/>;
-		setMessages(prevMessages => prevMessages.concat(messageBlock));
-	}, [myPeerID, setMessages, messages]);
+	function addMessage(newMessage) {
+		setMessages(
+			messages.concat(
+				<CentrifugoMessageBlock
+					userID={userID}
+					authorName={newMessage.authorName}
+					content={newMessage.content}
+					time={newMessage.time}
+					id={newMessage.id}
+					key={newMessage.key}
+					type={newMessage.type}
+				/>,
+			),
+		);
+	}
+
+	function postMessage(newMessage) {
+		const messageData = new FormData();
+		messageData.append('user', Number(userID));
+		messageData.append('chat', CENTRIFUGO_CHAT_ID);
+		messageData.append('content', newMessage.content);
+		fetch(SEND_MESSAGE_URL, {
+			method: 'POST',
+			body: messageData,
+		})
+			.then((resp) => resp.json())
+			.then((data) => {
+				// console.log(userID);
+				// console.log(data);
+			});
+	}
 
 	function handleAttach() {
 		setIsPressed(true);
@@ -88,7 +108,7 @@ export default function WebRTCMessageForm({
 				const { latitude, longitude } = position.coords;
 				const geoURL = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
 				const newMessage = createMessage(geoURL, 'text');
-				addMessage(newMessage);
+				postMessage(newMessage);
 			};
 			const geoError = (error) => {
 				// console.log(error.message);
@@ -186,14 +206,40 @@ export default function WebRTCMessageForm({
 	}
 
 	useEffect(() => {
-		if (foreignPeerConn) {
-			foreignPeerConn.on('open', () => {
-				foreignPeerConn.on('data', (newMessage) => {
-					addMessage(newMessage);
+		const centrifuge = new Centrifuge(CENTRIFUGO_WEBSOCKET_URL);
+		centrifuge.subscribe('chats:centrifuge', (resp) => {
+			if (resp.data.status === 'ok') {
+				pollMessages();
+			};
+		});
+		centrifuge.connect();
+		const pollMessages = () => {
+			fetch(`${CENTRIFUGO_MESSAGES_URL}`)
+				.then(resp => resp.json())
+				.then((data) => {
+					const received = data.messages;
+					received.reverse();
+					const messagesArray = [];
+					if (messages.length < received.length) {
+						for (let i = messages.length; i < received.length; i += 1) {
+							messagesArray.push(
+								<CentrifugoMessageBlock
+									userID={userID}
+									authorName={received[i].user}
+									content={received[i].content}
+									time={received[i].added_at}
+									id={i}
+									key={i}
+									type="text"
+								/>
+							);
+						}
+					}
+					setMessages(messages.concat(messagesArray));
 				});
-			});
-		}
-	}, [foreignPeerConn, addMessage, messages]);
+		};
+		pollMessages();
+	}, [setMessages, messages, userID]);
 
 	const reversedMessages = reverseArray(messages);
 
@@ -220,8 +266,7 @@ export default function WebRTCMessageForm({
 	);
 }
 
-WebRTCMessageForm.propTypes = {
-	myPeerID: PropTypes.string.isRequired,
-	messages: PropTypes.array.isRequired,
-	setMessages: PropTypes.func.isRequired,
+CentrifugoMessageForm.propTypes = {
+	userName: PropTypes.string.isRequired,
+	userID: PropTypes.number.isRequired,
 };
