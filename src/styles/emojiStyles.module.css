@@ -1,0 +1,125 @@
+.emojis {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	bottom: 12.5vh;
+	right: 1vw;
+	background-color: white;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+	z-index: 1;
+}
+.emojis:before {
+	content: " ";
+	position: absolute;
+	width: 0;
+	height: 0;
+	right: 18.5vh;
+	bottom: -4vh;
+	border: 2vh solid;
+	border-color: rgba(0, 0, 0, 0.5) transparent transparent rgba(0, 0, 0, 0.5);
+}
+.emojis:after {
+	content: " ";
+	position: absolute;
+	width: 0;
+	height: 0;
+	right: 18.4vh;
+	bottom: -3.7vh;
+	border: 2vh solid;
+	border-color: white transparent transparent white;
+}
+
+.emoji {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	z-index: 1;
+}
+
+.emoji:hover {
+	opacity: 0.8;
+}
+
+.emojiImg {
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-self: center;
+	z-index: 1;
+}
+
+.angry {
+	background: url('../assets/emojis/angry.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.anguished {
+	background: url('../assets/emojis/anguished.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.savoring {
+	background: url('../assets/emojis/savoring.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.eyebrow {
+	background: url('../assets/emojis/eyebrow.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.rolling {
+	background: url('../assets/emojis/rolling.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.hand {
+	background: url('../assets/emojis/hand.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.ok {
+	background: url('../assets/emojis/ok.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.pensive {
+	background: url('../assets/emojis/pensive.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.sadrelieved {
+	background: url('../assets/emojis/sadrelieved.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.smiling {
+	background: url('../assets/emojis/smiling.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.smilingeyes {
+	background: url('../assets/emojis/smilingeyes.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.thinking {
+	background: url('../assets/emojis/thinking.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.thumbsup {
+	background: url('../assets/emojis/thumbsup.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.upsidedown {
+	background: url('../assets/emojis/upsidedown.png?sprite') no-repeat;
+	background-size: 30px;
+}
+
+.worried {
+	background: url('../assets/emojis/worried.png?sprite') no-repeat;
+	background-size: 30px;
+}

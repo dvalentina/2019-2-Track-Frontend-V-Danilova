@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../styles/editProfileHeaderStyles.module.css';
-import { ReactComponent as ReturnButtonSvg } from '../assets/return.svg';
-import { ReactComponent as SaveButtonSvg } from '../assets/tick.svg';
+import { ReactComponent as ReturnButtonSvg } from '../assets/icons/return.svg';
+import { ReactComponent as SaveButtonSvg } from '../assets/icons/tick.svg';
 
 export default function EditProfileHeader(props) {
 	return (

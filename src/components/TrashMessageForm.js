@@ -12,14 +12,11 @@ export default function TrashMessageForm({ userName, userID }) {
 	const [isAttachPressed, setIsPressed] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
 	const API_URL = 'http://localhost:8000/chats/1/messages/';
-	console.log(userID);
 
 	const pollItems = () => {
 		fetch(`${API_URL}`)
 			.then((resp) => resp.json())
 			.then((data) => {
-				console.log(data);
-				console.log(userID);
 				const received = data.messages;
 				received.reverse();
 				const messagesArray = [];
@@ -63,7 +60,6 @@ export default function TrashMessageForm({ userName, userID }) {
 	}
 
 	function createMessage(content, type) {
-		console.log(userName);
 		const submitTime = new Date().toTimeString().slice(0, 5);
 		const { length } = messages;
 		const message = {
@@ -104,8 +100,8 @@ export default function TrashMessageForm({ userName, userID }) {
 		})
 			.then((resp) => resp.json())
 			.then((data) => {
-				console.log(userID);
-				console.log(data);
+				// console.log(userID);
+				// console.log(data);
 			});
 	}
 
@@ -122,7 +118,7 @@ export default function TrashMessageForm({ userName, userID }) {
 				postMessage(newMessage);
 			};
 			const geoError = (error) => {
-				console.log(error.message);
+				// console.log(error.message);
 			};
 			const geoOptions = {
 				enableHighAccuracy: true,
@@ -132,7 +128,7 @@ export default function TrashMessageForm({ userName, userID }) {
 			navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
 			setIsPressed(false);
 		} else {
-			alert('Geolocation is not available');
+			// alert('Geolocation is not available');
 		}
 	}
 
@@ -201,7 +197,7 @@ export default function TrashMessageForm({ userName, userID }) {
 				stream = await navigator.mediaDevices.getUserMedia(constraints);
 				recordAudio(stream);
 			} catch (error) {
-				console.log(error.message);
+				// console.log(error.message);
 			}
 		}
 

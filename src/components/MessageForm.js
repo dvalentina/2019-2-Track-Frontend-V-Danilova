@@ -12,6 +12,7 @@ export default function MessageForm(props) {
 	const [inputValue, setInputValue] = useState('');
 	const [isAttachPressed, setIsPressed] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
+	const [isEmojiButtonPressed, setIsEmojiButtonPressed] = useState(false);
 
 	function handleChange(event) {
 		setInputValue(event.target.value);
@@ -26,6 +27,9 @@ export default function MessageForm(props) {
 		addMessage(newMessage);
 		addMessageToLocalStorage(newMessage);
 		setInputValue('');
+		setIsEmojiButtonPressed(false);
+		setIsPressed(false);
+		setIsRecording(false);
 	}
 
 	function createMessage(content, type) {
@@ -93,6 +97,20 @@ export default function MessageForm(props) {
 		setIsPressed(true);
 	}
 
+	function handleEmojiButtonClicked() {
+		if (!isEmojiButtonPressed) {
+			setIsEmojiButtonPressed(true);
+		} else {
+			setIsEmojiButtonPressed(false);
+		}
+	}
+
+	function handleEmojiClicked(name) {
+		let input = inputValue;
+		input += `:${name}:`;
+		setInputValue(input);
+	}
+
 	function handleAttachGeolocation() {
 		if ('geolocation' in navigator) {
 			const geoSuccess = (position) => {
@@ -103,7 +121,7 @@ export default function MessageForm(props) {
 				addMessageToLocalStorage(newMessage);
 			};
 			const geoError = (error) => {
-				console.log(error.message);
+				// console.log(error.message);
 			};
 			const geoOptions = {
 				enableHighAccuracy: true,
@@ -113,7 +131,7 @@ export default function MessageForm(props) {
 			navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
 			setIsPressed(false);
 		} else {
-			alert('Geolocation is not available');
+			// alert('Geolocation is not available');
 		}
 	}
 
@@ -182,7 +200,7 @@ export default function MessageForm(props) {
 				stream = await navigator.mediaDevices.getUserMedia(constraints);
 				recordAudio(stream);
 			} catch (error) {
-				console.log(error.message);
+				// console.log(error.message);
 			}
 		}
 		getMedia();
@@ -214,6 +232,9 @@ export default function MessageForm(props) {
 				isAttachPressed={isAttachPressed}
 				handleAttach={handleAttach}
 				isRecording={isRecording}
+				isEmojiButtonPressed={isEmojiButtonPressed}
+				handleEmojiButtonClicked={handleEmojiButtonClicked}
+				handleEmojiClicked={handleEmojiClicked}
 			/>
 		</div>
 	);

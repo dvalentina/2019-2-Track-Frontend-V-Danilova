@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../styles/chatListHeaderStyles.module.css';
-import { ReactComponent as MenuButtonSvg } from '../assets/menu.svg';
-import { ReactComponent as SearchButtonSvg } from '../assets/search.svg';
+import { ReactComponent as MenuButtonSvg } from '../assets/icons/menu.svg';
+import { ReactComponent as SearchButtonSvg } from '../assets/icons/search.svg';
 
 export default function ChatListHeader(props) {
 	return (

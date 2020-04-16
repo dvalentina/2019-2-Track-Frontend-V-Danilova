@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from './Header.js';
 import TrashChatHeader from './TrashChatHeader.js';
 import MessageForm from './MessageForm.js';
@@ -22,7 +23,7 @@ export default class App extends React.Component {
 			})
 				.then((resp) => resp.json())
 				.then((data) => {
-					console.log(data);
+					// console.log(data);
 					this.setState({ userID: data.id });
 				});
 		})();
@@ -34,8 +35,6 @@ export default class App extends React.Component {
 
 	render() {
 		const { nameUser, userID } = this.state;
-		console.log(nameUser);
-		console.log(userID);
 		return (
 			<HashRouter>
 				<Route exact path="/">
@@ -69,4 +68,9 @@ function MessengerScreen({ screen }) {
 	if (screen === 'edit profile') {
 		return <EditProfile />;
 	}
+	return null;
 }
+
+MessengerScreen.propTypes = {
+	screen: PropTypes.string.isRequired,
+};
