@@ -29,7 +29,7 @@ function Content({ type, content }) {
 	if (type === 'text') {
 		const regExp = /:.*?:/;
 		if (!regExp.test(content)) {
-			return(
+			return (
 				<div className={styles.textContent}>{content}</div>
 			);
 		}
@@ -54,12 +54,12 @@ function Content({ type, content }) {
 		message.push(
 			<p>{text}</p>
 		);
-		return(
+		return (
 			<div className={styles.textContent}>{message}</div>
 		);
 	}
 	if (type === 'image') {
-		return(
+		return (
 			<img
 				className={styles.imageContent}
 				src={content}
@@ -71,7 +71,7 @@ function Content({ type, content }) {
 		);
 	}
 	if (type === 'audio') {
-		return(
+		return (
 			<audio
 				controls
 				src={content}
@@ -87,6 +87,12 @@ function Content({ type, content }) {
 			</audio>
 		);
 	}
+	return null;
 }
+
+Content.propTypes = {
+	type: PropTypes.string.isRequired,
+	content: PropTypes.string.isRequired,
+};
 
 export { Content };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Peer from 'peerjs';
 import Header from './Header.js';
 import TrashChatHeader from './TrashChatHeader.js';
@@ -124,7 +125,7 @@ export default class App extends React.Component {
 					/>
 				</Route>
 				<Route exact path="/centrifugo">
-					<CentrifugoChatHeader userName={nameUser} />
+					<CentrifugoChatHeader userID={userID} />
 					<CentrifugoMessageForm userName={nameUser} userID={userID} />
 				</Route>
 			</HashRouter>
@@ -142,4 +143,9 @@ function MessengerScreen({ screen }) {
 	if (screen === 'edit profile') {
 		return <EditProfile />;
 	}
+	return null;
 }
+
+MessengerScreen.propTypes = {
+	screen: PropTypes.string.isRequired,
+};

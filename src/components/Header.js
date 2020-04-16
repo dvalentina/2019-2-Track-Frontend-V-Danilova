@@ -6,20 +6,15 @@ import EditProfileHeader from './EditProfileHeader.js';
 
 export default function Header({ screen }) {
 	if (screen === 'chat') {
-		return (
-			<ChatHeader />
-		);
+		return <ChatHeader />;
 	}
 	if (screen === 'chat list') {
-		return (
-			<ChatListHeader />
-		);
+		return <ChatListHeader />;
 	}
 	if (screen === 'edit profile') {
-		return(
-			<EditProfileHeader />
-		);
+		return <EditProfileHeader />;
 	}
+	return null;
 }
 
 Header.propTypes = {

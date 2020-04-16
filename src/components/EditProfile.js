@@ -80,7 +80,7 @@ FullName.propTypes = {
 };
 
 function UserName({ handleUserNameChange, userName }) {
-	return(
+	return (
 		<div className={styles.inputWrap}>
 			<div className={styles.inputForm}>
 				<p className={styles.text}>Username</p>
@@ -103,7 +103,7 @@ UserName.propTypes = {
 };
 
 function Bio({ handleBioChange, bio }) {
-	return(
+	return (
 		<div className={styles.wrap}>
 			<div className={styles.textAreaForm}>
 				<p className={styles.text}>Bio</p>
