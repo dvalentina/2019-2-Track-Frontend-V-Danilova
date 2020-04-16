@@ -14,7 +14,7 @@ const Centrifuge = require('centrifuge');
 
 let mediaRecorder = null;
 
-export default function CentrifugoMessageForm({ userName, userID }) {
+export default function CentrifugoMessageForm({ userID }) {
 	const [messages, setMessages] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [isAttachPressed, setIsPressed] = useState(false);
@@ -42,7 +42,7 @@ export default function CentrifugoMessageForm({ userName, userID }) {
 		const submitTime = new Date().toTimeString().slice(0, 5);
 		const { length } = messages;
 		const message = {
-			authorName: userName,
+			authorID: userID,
 			content,
 			time: submitTime,
 			id: length,
@@ -57,7 +57,7 @@ export default function CentrifugoMessageForm({ userName, userID }) {
 			messages.concat(
 				<CentrifugoMessageBlock
 					userID={userID}
-					authorName={newMessage.authorName}
+					authorID={newMessage.authorID}
 					content={newMessage.content}
 					time={newMessage.time}
 					id={newMessage.id}
@@ -207,12 +207,12 @@ export default function CentrifugoMessageForm({ userName, userID }) {
 
 	useEffect(() => {
 		const centrifuge = new Centrifuge(CENTRIFUGO_WEBSOCKET_URL);
-		centrifuge.subscribe('chats:centrifuge', (resp) => {
+		centrifuge.connect();
+		centrifuge.subscribe('centrifuge', (resp) => {
 			if (resp.data.status === 'ok') {
 				pollMessages();
 			};
 		});
-		centrifuge.connect();
 		const pollMessages = () => {
 			fetch(`${CENTRIFUGO_MESSAGES_URL}`)
 				.then(resp => resp.json())
@@ -225,7 +225,7 @@ export default function CentrifugoMessageForm({ userName, userID }) {
 							messagesArray.push(
 								<CentrifugoMessageBlock
 									userID={userID}
-									authorName={received[i].user}
+									authorID={received[i].user}
 									content={received[i].content}
 									time={received[i].added_at}
 									id={i}
@@ -267,6 +267,5 @@ export default function CentrifugoMessageForm({ userName, userID }) {
 }
 
 CentrifugoMessageForm.propTypes = {
-	userName: PropTypes.string.isRequired,
-	userID: PropTypes.number.isRequired,
+	userID: PropTypes.string.isRequired,
 };

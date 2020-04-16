@@ -5,14 +5,14 @@ import styles from '../../styles/chatHeaderStyles.module.css';
 import { OptionsButton, SearchButton, UserAvatar } from '../ChatHeader.js';
 import { ReactComponent as ReturnButtonSvg } from '../../assets/icons/return.svg';
 
-export default function CentrifugoChatHeader({ userName }) {
+export default function CentrifugoChatHeader({ userID }) {
 	return (
 		<div className={styles.chatHeader}>
 			<Link to="/" className={styles.headerButton}>
 				<ReturnButtonSvg className={styles.buttonSvg} />
 			</Link>
 			<UserAvatar />
-			<ChatTitle userName={userName} />
+			<ChatTitle userID={userID} />
 			<SearchButton />
 			<OptionsButton />
 		</div>
@@ -20,11 +20,11 @@ export default function CentrifugoChatHeader({ userName }) {
 }
 
 CentrifugoChatHeader.propTypes = {
-	userName: PropTypes.string.isRequired,
+	userID: PropTypes.number.isRequired,
 };
 
-function ChatTitle({ userName }) {
-	const status = `Your username is "${userName}"`;
+function ChatTitle({ userID }) {
+	const status = `Your user ID is "${userID}"`;
 	return (
 		<div className={styles.userInfo}>
 			<p className={styles.userName}>Centrifugo Chat</p>
@@ -34,6 +34,6 @@ function ChatTitle({ userName }) {
 }
 
 ChatTitle.propTypes = {
-	userName: PropTypes.string.isRequired,
+	userID: PropTypes.number.isRequired,
 };
 
