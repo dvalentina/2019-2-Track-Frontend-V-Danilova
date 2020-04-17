@@ -1,4 +1,4 @@
-import TranslateUtils from '../TranslateUtils/index'
+import TranslateUtils from '../TranslateUtils'
 import { ITranslateParams } from '../TranslateUtils/types'
 
 const case1: ITranslateParams = {
