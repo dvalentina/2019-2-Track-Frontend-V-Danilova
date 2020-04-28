@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../styles/trashMessageBlockStyles.module.css';
+import styles from '../styles/twoMessageBlockStyles.module.css';
 
 export default function TrashMessageBlock({ userID, authorName, content, time, type }) {
 	if (userID === authorName) {

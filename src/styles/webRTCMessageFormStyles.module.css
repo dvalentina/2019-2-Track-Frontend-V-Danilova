@@ -1,0 +1,8 @@
+.chatBox {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 71vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgb(237, 237, 237);
+  }

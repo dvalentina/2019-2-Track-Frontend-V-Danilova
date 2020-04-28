@@ -86,4 +86,9 @@ function ChatDeliveryIndicator(props) {
 	);
 }
 
-export { ChatDeliveryIndicator, ChatAvatar };
+export {
+	ChatDeliveryIndicator,
+	ChatAvatar,
+	ChatBlockRight,
+	ChatBlockCenter,
+};

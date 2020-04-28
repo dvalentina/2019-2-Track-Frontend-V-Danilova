@@ -1,49 +1,25 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable react/forbid-prop-types */
+
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import styles from '../styles/messageFormStyles.module.css';
-import FormInput from './FormInput.js';
-import TrashMessageBlock from './TrashMessageBlock.js';
-import { TRASH_CHAT_ID, TRASH_CHAT_MESSAGES_URL, SEND_MESSAGE_URL } from '../constants.js';
+import styles from '../../styles/webRTCMessageFormStyles.module.css';
+import FormInput from '../FormInput.js';
+import WebRTCMessageBlock from './WebRTCMessageBlock.js';
 
 let mediaRecorder = null;
 
-export default function TrashMessageForm({ userName, userID }) {
-	const [messages, setMessages] = useState([]);
+export default function WebRTCMessageForm({
+	myPeerConn,
+	myPeerID,
+	foreignPeerConn,
+	messages,
+	setMessages,
+}) {
 	const [inputValue, setInputValue] = useState('');
 	const [isAttachPressed, setIsPressed] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
-
-	const pollItems = () => {
-		fetch(`${TRASH_CHAT_MESSAGES_URL}`)
-			.then((resp) => resp.json())
-			.then((data) => {
-				const received = data.messages;
-				received.reverse();
-				const messagesArray = [];
-				if (messages.length < received.length) {
-					for (let i = messages.length; i < received.length; i += 1) {
-						messagesArray.push(
-							<TrashMessageBlock
-								userID={userID}
-								authorName={received[i].user}
-								content={received[i].content}
-								time={received[i].added_at}
-								id={i}
-								key={i}
-								type="text"
-							/>
-						);
-					}
-				}
-				setMessages(messages.concat(messagesArray));
-			});
-	};
-
-	const t = setInterval(() => pollItems(), 3000);
-
-	setTimeout(() => {
-		clearInterval(t);
-	}, 30000);
+	const [isEmojiButtonPressed, setIsEmojiButtonPressed] = useState(false);
 
 	function handleChange(event) {
 		setInputValue(event.target.value);
@@ -55,57 +31,55 @@ export default function TrashMessageForm({ userName, userID }) {
 			return;
 		}
 		const newMessage = createMessage(inputValue, 'text');
-		postMessage(newMessage);
+		addMessage(newMessage);
+		myPeerConn.send(newMessage);
 		setInputValue('');
+		setIsEmojiButtonPressed(false);
+		setIsPressed(false);
+		setIsRecording(false);
 	}
 
 	function createMessage(content, type) {
 		const submitTime = new Date().toTimeString().slice(0, 5);
-		const { length } = messages;
 		const message = {
-			authorName: userName,
+			authorName: myPeerID,
 			content,
 			time: submitTime,
-			id: length,
-			key: length,
 			type,
 		};
 		return message;
 	}
 
-	function addMessage(newMessage) {
-		setMessages(
-			messages.concat(
-				<TrashMessageBlock
-					authorName={newMessage.authorName}
-					content={newMessage.content}
-					time={newMessage.time}
-					id={newMessage.id}
-					key={newMessage.key}
-					type={newMessage.type}
-				/>,
-			),
-		);
-	}
-
-	function postMessage(newMessage) {
-		const messageData = new FormData();
-		messageData.append('user', Number(userID));
-		messageData.append('chat', TRASH_CHAT_ID);
-		messageData.append('content', newMessage.content);
-		fetch(SEND_MESSAGE_URL, {
-			method: 'POST',
-			body: messageData,
-		})
-			.then((resp) => resp.json())
-			.then((data) => {
-				// console.log(userID);
-				// console.log(data);
-			});
-	}
+	const addMessage = useCallback((newMessage) => {
+		const { length } = messages.length;
+		const messageBlock = <WebRTCMessageBlock
+			myPeerID={myPeerID}
+			authorName={newMessage.authorName}
+			content={newMessage.content}
+			time={newMessage.time}
+			id={length}
+			key={length}
+			type={newMessage.type}
+		/>;
+		setMessages(prevMessages => prevMessages.concat(messageBlock));
+	}, [myPeerID, setMessages, messages]);
 
 	function handleAttach() {
 		setIsPressed(true);
+	}
+
+	function handleEmojiButtonClicked() {
+		if (!isEmojiButtonPressed) {
+			setIsEmojiButtonPressed(true);
+		} else {
+			setIsEmojiButtonPressed(false);
+		}
+	}
+
+	function handleEmojiClicked(name) {
+		let input = inputValue;
+		input += `:${name}:`;
+		setInputValue(input);
 	}
 
 	function handleAttachGeolocation() {
@@ -114,7 +88,7 @@ export default function TrashMessageForm({ userName, userID }) {
 				const { latitude, longitude } = position.coords;
 				const geoURL = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
 				const newMessage = createMessage(geoURL, 'text');
-				postMessage(newMessage);
+				addMessage(newMessage);
 			};
 			const geoError = (error) => {
 				// console.log(error.message);
@@ -199,7 +173,6 @@ export default function TrashMessageForm({ userName, userID }) {
 				// console.log(error.message);
 			}
 		}
-
 		getMedia();
 	}
 
@@ -211,6 +184,16 @@ export default function TrashMessageForm({ userName, userID }) {
 		}
 		return newArray;
 	}
+
+	useEffect(() => {
+		if (foreignPeerConn) {
+			foreignPeerConn.on('open', () => {
+				foreignPeerConn.on('data', (newMessage) => {
+					addMessage(newMessage);
+				});
+			});
+		}
+	}, [foreignPeerConn, addMessage, messages]);
 
 	const reversedMessages = reverseArray(messages);
 
@@ -229,12 +212,16 @@ export default function TrashMessageForm({ userName, userID }) {
 				isAttachPressed={isAttachPressed}
 				handleAttach={handleAttach}
 				isRecording={isRecording}
+				isEmojiButtonPressed={isEmojiButtonPressed}
+				handleEmojiButtonClicked={handleEmojiButtonClicked}
+				handleEmojiClicked={handleEmojiClicked}
 			/>
 		</div>
 	);
 }
 
-TrashMessageForm.propTypes = {
-	userName: PropTypes.string.isRequired,
-	userID: PropTypes.number.isRequired,
+WebRTCMessageForm.propTypes = {
+	myPeerID: PropTypes.string.isRequired,
+	messages: PropTypes.array.isRequired,
+	setMessages: PropTypes.func.isRequired,
 };

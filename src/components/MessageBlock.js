@@ -94,3 +94,5 @@ Content.propTypes = {
 	type: PropTypes.string.isRequired,
 	content: PropTypes.string.isRequired,
 };
+
+export { Content };

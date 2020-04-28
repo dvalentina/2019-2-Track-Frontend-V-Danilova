@@ -1,49 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styles from '../styles/messageFormStyles.module.css';
-import FormInput from './FormInput.js';
-import TrashMessageBlock from './TrashMessageBlock.js';
-import { TRASH_CHAT_ID, TRASH_CHAT_MESSAGES_URL, SEND_MESSAGE_URL } from '../constants.js';
+import styles from '../../styles/messageFormStyles.module.css';
+import FormInput from '../FormInput.js';
+import CentrifugoMessageBlock from './CentrifugoMessageBlock.js';
+import {
+	CENTRIFUGO_CHAT_ID,
+	CENTRIFUGO_WEBSOCKET_URL,
+	SEND_MESSAGE_URL,
+	CENTRIFUGO_MESSAGES_URL,
+} from '../../constants.js';
+
+const Centrifuge = require('centrifuge');
 
 let mediaRecorder = null;
 
-export default function TrashMessageForm({ userName, userID }) {
+export default function CentrifugoMessageForm({ userID }) {
 	const [messages, setMessages] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [isAttachPressed, setIsPressed] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
-
-	const pollItems = () => {
-		fetch(`${TRASH_CHAT_MESSAGES_URL}`)
-			.then((resp) => resp.json())
-			.then((data) => {
-				const received = data.messages;
-				received.reverse();
-				const messagesArray = [];
-				if (messages.length < received.length) {
-					for (let i = messages.length; i < received.length; i += 1) {
-						messagesArray.push(
-							<TrashMessageBlock
-								userID={userID}
-								authorName={received[i].user}
-								content={received[i].content}
-								time={received[i].added_at}
-								id={i}
-								key={i}
-								type="text"
-							/>
-						);
-					}
-				}
-				setMessages(messages.concat(messagesArray));
-			});
-	};
-
-	const t = setInterval(() => pollItems(), 3000);
-
-	setTimeout(() => {
-		clearInterval(t);
-	}, 30000);
+	const [isEmojiButtonPressed, setIsEmojiButtonPressed] = useState(false);
 
 	function handleChange(event) {
 		setInputValue(event.target.value);
@@ -57,13 +33,16 @@ export default function TrashMessageForm({ userName, userID }) {
 		const newMessage = createMessage(inputValue, 'text');
 		postMessage(newMessage);
 		setInputValue('');
+		setIsEmojiButtonPressed(false);
+		setIsPressed(false);
+		setIsRecording(false);
 	}
 
 	function createMessage(content, type) {
 		const submitTime = new Date().toTimeString().slice(0, 5);
 		const { length } = messages;
 		const message = {
-			authorName: userName,
+			authorID: userID,
 			content,
 			time: submitTime,
 			id: length,
@@ -76,8 +55,9 @@ export default function TrashMessageForm({ userName, userID }) {
 	function addMessage(newMessage) {
 		setMessages(
 			messages.concat(
-				<TrashMessageBlock
-					authorName={newMessage.authorName}
+				<CentrifugoMessageBlock
+					userID={userID}
+					authorID={newMessage.authorID}
 					content={newMessage.content}
 					time={newMessage.time}
 					id={newMessage.id}
@@ -91,7 +71,7 @@ export default function TrashMessageForm({ userName, userID }) {
 	function postMessage(newMessage) {
 		const messageData = new FormData();
 		messageData.append('user', Number(userID));
-		messageData.append('chat', TRASH_CHAT_ID);
+		messageData.append('chat', CENTRIFUGO_CHAT_ID);
 		messageData.append('content', newMessage.content);
 		fetch(SEND_MESSAGE_URL, {
 			method: 'POST',
@@ -106,6 +86,20 @@ export default function TrashMessageForm({ userName, userID }) {
 
 	function handleAttach() {
 		setIsPressed(true);
+	}
+
+	function handleEmojiButtonClicked() {
+		if (!isEmojiButtonPressed) {
+			setIsEmojiButtonPressed(true);
+		} else {
+			setIsEmojiButtonPressed(false);
+		}
+	}
+
+	function handleEmojiClicked(name) {
+		let input = inputValue;
+		input += `:${name}:`;
+		setInputValue(input);
 	}
 
 	function handleAttachGeolocation() {
@@ -199,7 +193,6 @@ export default function TrashMessageForm({ userName, userID }) {
 				// console.log(error.message);
 			}
 		}
-
 		getMedia();
 	}
 
@@ -211,6 +204,42 @@ export default function TrashMessageForm({ userName, userID }) {
 		}
 		return newArray;
 	}
+
+	useEffect(() => {
+		const centrifuge = new Centrifuge(CENTRIFUGO_WEBSOCKET_URL);
+		centrifuge.connect();
+		centrifuge.subscribe('centrifuge', (resp) => {
+			if (resp.data.status === 'ok') {
+				pollMessages();
+			};
+		});
+		const pollMessages = () => {
+			fetch(`${CENTRIFUGO_MESSAGES_URL}`)
+				.then(resp => resp.json())
+				.then((data) => {
+					const received = data.messages;
+					received.reverse();
+					const messagesArray = [];
+					if (messages.length < received.length) {
+						for (let i = messages.length; i < received.length; i += 1) {
+							messagesArray.push(
+								<CentrifugoMessageBlock
+									userID={userID}
+									authorID={received[i].user}
+									content={received[i].content}
+									time={received[i].added_at}
+									id={i}
+									key={i}
+									type="text"
+								/>
+							);
+						}
+					}
+					setMessages(messages.concat(messagesArray));
+				});
+		};
+		pollMessages();
+	}, [setMessages, messages, userID]);
 
 	const reversedMessages = reverseArray(messages);
 
@@ -229,12 +258,14 @@ export default function TrashMessageForm({ userName, userID }) {
 				isAttachPressed={isAttachPressed}
 				handleAttach={handleAttach}
 				isRecording={isRecording}
+				isEmojiButtonPressed={isEmojiButtonPressed}
+				handleEmojiButtonClicked={handleEmojiButtonClicked}
+				handleEmojiClicked={handleEmojiClicked}
 			/>
 		</div>
 	);
 }
 
-TrashMessageForm.propTypes = {
-	userName: PropTypes.string.isRequired,
-	userID: PropTypes.number.isRequired,
+CentrifugoMessageForm.propTypes = {
+	userID: PropTypes.string.isRequired,
 };
