@@ -149,3 +149,6 @@ jest_*/
 .idea
 .vscode
 .storybook/
+ts/utils/*.js
+ts/utils/TranslateUtils/*.js
+ts/utils/tests/*.js
