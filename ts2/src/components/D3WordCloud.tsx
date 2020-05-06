@@ -17,8 +17,8 @@ const D3WordCloud = (props: T.ID3WordCloudProps) => {
         const padding = 0
         
         const words: Array<string> = inputText.split(/[\s.]+/g)
-            .map(w => w.replace(/^[“‘"\-—()\[\]{}]+/g, ""))
-            .map(w => w.replace(/[;:.!?()\[\]{},"'’”\-—]+$/g, ""))
+            .map(w => w.replace(/^[“‘"\-—()\]{}]+/g, ""))
+            .map(w => w.replace(/[;:.!?()\]{},"'’”\-—]+$/g, ""))
             .map(w => w.replace(/['’]s$/g, ""))
             .map(w => w.substring(0, 30))
             .map(w => w.toLowerCase())
@@ -52,7 +52,7 @@ const D3WordCloud = (props: T.ID3WordCloudProps) => {
             .on('word', ({x, y, rotate, text}) => {
                 if (text) {
                     const size = data.get(text)
-                    if (size && x != undefined && y != undefined) {
+                    if (size && x !== undefined && y !== undefined) {
                         svg.append('text')
                         .attr('font-size', Math.sqrt(size)*fontScale)
                         .attr('transform', `translate(${x},${y}) rotate(${rotate})`)
