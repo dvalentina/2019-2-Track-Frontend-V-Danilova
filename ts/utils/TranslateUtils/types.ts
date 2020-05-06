@@ -18,8 +18,4 @@ export interface ICache {
     [index: string]: TTranslateResponse
 }
 
-export interface ISaveCache {
-    
-}
-
 export type TTranslateResponse = ITranslateResponse | ITranslateResponseError
