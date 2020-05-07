@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { HashRouter, Route } from 'react-router-dom'
+import { HashRouter, Route, Link } from 'react-router-dom'
 import D3WordCloud from './D3WordCloud'
 import Input from './Input'
 import '../styles/App.css'
@@ -42,6 +42,9 @@ function App() {
 						>
 							Learn React
 						</a>
+						<Link to='/wordcloud' className='App-link'>
+							Word Cloud
+						</Link>
 					</header>
 				</div>
 			</Route>
