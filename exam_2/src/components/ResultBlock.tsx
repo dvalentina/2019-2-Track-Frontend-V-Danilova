@@ -1,11 +1,11 @@
 import React from 'react'
-import * as T from '../types/ResultBlock.types'
+import styles from '../styles/ResultBlock.module.css'
 
-export default function ResultBlock(props: T.IResultBlockProps) {
-    let result
-    return (
-        <div>
-            {result}
-        </div>
-    )
+export default function ResultBlock() {
+	let result
+	return (
+		<div className={styles.div} >
+			{result}
+		</div>
+	)
 }

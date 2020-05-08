@@ -1,0 +1,35 @@
+.button {
+	background-color: white;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 5px solid rgba(0, 0, 0, 0);
+	color: black;
+	text-align: center;
+	font-size: 16px;
+	height: 5vh;
+	width: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	display: flex;
+}
+
+.buttonPressed {
+	background-color: white;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 5px solid rgb(0, 100, 200);
+	color: rgb(0, 100, 200);
+	text-align: center;
+	height: 5vh;
+	width: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 16px;
+	display: flex;
+}
+
+button:active, button:focus {
+	outline: none;
+}

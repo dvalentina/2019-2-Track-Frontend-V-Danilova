@@ -1,13 +1,12 @@
 import React from 'react'
 import * as T from '../types/InputBlock.types'
+import styles from '../styles/InputBlock.module.css'
 
 export default function InputBlock(props: T.IInputBlockProps) {
     return(
-        <div>
+        <div className={styles.div}>
             <form>
-			    <textarea
-                    cols={100}
-                    rows={12}
+			    <textarea className={styles.textarea}
 			    	placeholder='Введите текст для перевода'
 			    	value={props.value}
 			    	onChange={props.handleChange}

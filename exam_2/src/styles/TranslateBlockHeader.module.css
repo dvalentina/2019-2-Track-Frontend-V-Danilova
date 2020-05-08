@@ -1,0 +1,7 @@
+.div {
+	height: auto;
+	width: 91vw;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
