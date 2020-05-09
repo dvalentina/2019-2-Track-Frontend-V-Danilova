@@ -12,6 +12,7 @@ export default function LanguageLine(props: T.IProps) {
 
 	function handleClick(name: string) {
 		props.handleLanguageChange(name)
+		changeButtonsState(name)
 	}
 
 	for (let i = 0; i < 3; i += 1) {
@@ -45,7 +46,7 @@ export default function LanguageLine(props: T.IProps) {
 
 	useEffect(() => {
 		changeButtonsState(props.chosenLanguage)
-	}, [props.chosenLanguage, changeButtonsState])
+	}, [props.chosenLanguage])
 
 	return (
 		<div className={styles.div} >
