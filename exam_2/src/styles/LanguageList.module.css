@@ -1,0 +1,21 @@
+.languageList {
+    width: auto;
+    height: auto;
+    background-color: rgba(230, 230, 230, 0.5);
+    z-index: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.languageRow {
+    display: flex;
+    padding: 0.5vh;
+    font-size: 16px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+}
+.languageRow:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}

@@ -16,9 +16,26 @@ export default function TranslateBlock() {
 	}
 
 	const languageCodes: Map<string, string> = new Map([
-		['RUSSIAN', 'ru'],
+		['AZERBAIJAN', 'az'],
+		['ALBANIAN', 'sq'],
+		['AMHARIC', 'am'],
 		['ENGLISH', 'en'],
+		['ARABIC', 'ar'],
+		['ARMENIAN', 'hy'],
+		['BASQUE', 'eu'],
+		['BASHKIR', 'ba'],
+		['BELARUSIAN', 'be'],
+		['BENGALI', 'bn'],
+		['RUSSIAN', 'ru'],
 		['GERMAN', 'de'],
+		['NORWEGIAN', 'no'],
+		['PERSIAN','fa'],
+		['POLISH', 'pl'],
+		['SPANISH', 'es'],
+		['CHINESE', 'zh'],
+		['KOREAN', 'ko'],
+		['ITALIAN', 'it'],
+		['IRISH', 'ga'],
 	])
 
 	function handleInputLanguageChange(language: string) {
@@ -61,6 +78,7 @@ export default function TranslateBlock() {
 	return (
 		<div className={styles.div}>
 			<TranslateBlockHeader
+				languageCodes={languageCodes}
 				handleInputLanguageChange={handleInputLanguageChange}
 				handleResultLanguageChange={handleResultLanguageChange}
 				inputLanguage={inputLanguage}

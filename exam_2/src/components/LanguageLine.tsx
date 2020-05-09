@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import LanguageBlock from './LanguageBlock'
+import LanguageListButton from './LanguageListButton'
 import * as T from '../types/LanguageLine.types'
 import styles from '../styles/LanguageLine.module.css'
 
 export default function LanguageLine(props: T.IProps) {
 	const [buttonsPressedState, setButtonsPressedState] = useState([false, false, false])
 	const [detectLanguageState, setDetectLanguageState] = useState(false)
-	const shownLanguages: Array<string> = ['ENGLISH', 'RUSSIAN', 'GERMAN']
+	const [shownLanguages, setShownLanguages] = useState(['ENGLISH', 'RUSSIAN', 'GERMAN'])
 	let detectLanguage = null
 	let languages: Array<any> = []
 
@@ -19,6 +20,19 @@ export default function LanguageLine(props: T.IProps) {
 		languages.push(<LanguageBlock
 			name={shownLanguages[i]}
 			isPressed={buttonsPressedState[i]}
+			handleClick={handleClick}
+		/>)
+	}
+
+	function handleNewLanguageBlock(language: string) {
+		const shown: Array<string> = shownLanguages
+		shown.pop()
+		shown.unshift(language)
+		setShownLanguages(shown)
+		languages.pop()
+		languages.unshift(<LanguageBlock
+			name={shownLanguages[0]}
+			isPressed={buttonsPressedState[0]}
 			handleClick={handleClick}
 		/>)
 	}
@@ -52,6 +66,11 @@ export default function LanguageLine(props: T.IProps) {
 		<div className={styles.div} >
 			{detectLanguage}
 			{languages}
+			<LanguageListButton
+				handleNewLanguageBlock={handleNewLanguageBlock}
+				languageCodes={props.languageCodes}
+				handleLanguageChange={props.handleLanguageChange}
+			/>
 		</div>
 	)
 }

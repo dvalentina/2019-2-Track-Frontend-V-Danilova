@@ -1,0 +1,16 @@
+.button {
+	background-color: white;
+	border: none;
+	height: 5vh;
+	width: 5vh;
+	width: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	display: flex;
+}
+
+.svg {
+	height: 3vh;
+	width: 3vh;
+	fill: black;
+}

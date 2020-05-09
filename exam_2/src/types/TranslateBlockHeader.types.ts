@@ -3,4 +3,5 @@ export interface IProps {
     handleResultLanguageChange(language: string): void,
     inputLanguage: string,
     resultLanguage: string,
+	languageCodes: Map<string, string>,
 }
