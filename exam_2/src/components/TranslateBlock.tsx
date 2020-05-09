@@ -3,7 +3,7 @@ import TranslateBlockHeader from './TranslateBlockHeader'
 import TranslateBlockBody from './TranslateBlockBody'
 import styles from '../styles/TranslateBlock.module.css'
 import TranslateUtils from '../utils/TranslateUtils'
-import { ITranslateParams, ITranslateResponseError } from '../utils/TranslateUtils/types'
+import { ITranslateParams } from '../utils/TranslateUtils/types'
 
 export default function TranslateBlock() {
 	const [inputLanguage, setInputLanguage] = useState('ENGLISH')

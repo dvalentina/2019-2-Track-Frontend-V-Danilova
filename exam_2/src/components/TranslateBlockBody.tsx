@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import InputBlock from './InputBlock'
 import ResultBlock from './ResultBlock'
 import styles from '../styles/TranslateBlockBody.module.css'
