@@ -5,7 +5,7 @@ import styles from '../styles/LanguageLine.module.css'
 
 export default function LanguageLine(props: T.IProps) {
 	const [buttonsPressedState, setButtonsPressedState] = useState([false, false, false])
-	const [detectLanguageState, setDetectLanguageState] = useState(false)
+	const [detectLanguageState, setDetectLanguageState] = useState(true)
 	const shownLanguages: Array<string> = ['ENGLISH', 'RUSSIAN', 'GERMAN']
 	let detectLanguage = null
 	let languages: Array<any> = []
@@ -16,6 +16,7 @@ export default function LanguageLine(props: T.IProps) {
 			setDetectLanguageState(true)
 			setButtonsPressedState([false, false, false])
 		} else {
+			setDetectLanguageState(false)
 			const languageIndex: number = shownLanguages.indexOf(name)
 			let buttonsStateNew: Array<boolean> = [false, false, false]
 			buttonsStateNew[languageIndex] = true

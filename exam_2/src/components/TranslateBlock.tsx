@@ -6,7 +6,7 @@ import TranslateUtils from '../utils/TranslateUtils'
 import { ITranslateParams } from '../utils/TranslateUtils/types'
 
 export default function TranslateBlock() {
-	const [inputLanguage, setInputLanguage] = useState('ENGLISH')
+	const [inputLanguage, setInputLanguage] = useState('DETECT LANGUAGE')
 	const [resultLanguage, setResultLanguage] = useState('RUSSIAN')
 	const [translation, setTranslation] = useState('')
 	const [value, setValue] = useState('')
@@ -36,7 +36,7 @@ export default function TranslateBlock() {
 		if (languageCodes.has(resultLanguage)) {
 			resultCode = languageCodes.get(resultLanguage)
 		}
-		
+
 		if (inputLanguage === 'DETECT LANGUAGE') {
 			lang = `${resultCode}`
 		} else {
