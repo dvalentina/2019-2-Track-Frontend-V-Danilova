@@ -25,16 +25,18 @@ export default function LanguageLine(props: T.IProps) {
 	}
 
 	function handleNewLanguageBlock(language: string) {
-		const shown: Array<string> = shownLanguages
-		shown.pop()
-		shown.unshift(language)
-		setShownLanguages(shown)
-		languages.pop()
-		languages.unshift(<LanguageBlock
-			name={shownLanguages[0]}
-			isPressed={buttonsPressedState[0]}
-			handleClick={handleClick}
-		/>)
+		if (!shownLanguages.includes(language)) {
+			const shown: Array<string> = shownLanguages
+			shown.pop()
+			shown.unshift(language)
+			setShownLanguages(shown)
+			languages.pop()
+			languages.unshift(<LanguageBlock
+				name={shownLanguages[0]}
+				isPressed={buttonsPressedState[0]}
+				handleClick={handleClick}
+			/>)
+		}
 	}
 
 	function changeButtonsState(name: string) {
