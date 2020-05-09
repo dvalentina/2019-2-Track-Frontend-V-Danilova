@@ -32,13 +32,20 @@ export default function TranslateBlock() {
 	async function translate() {
 		let inputCode
 		let resultCode
-		if (languageCodes.has(inputLanguage)) {
-			inputCode = languageCodes.get(inputLanguage)
-		}
+		let lang: string
 		if (languageCodes.has(resultLanguage)) {
 			resultCode = languageCodes.get(resultLanguage)
 		}
-		const lang: string = `${inputCode}-${resultCode}`
+		
+		if (inputLanguage === 'DETECT LANGUAGE') {
+			lang = `${resultCode}`
+		} else {
+			if (languageCodes.has(inputLanguage)) {
+				inputCode = languageCodes.get(inputLanguage)
+			}
+			lang = `${inputCode}-${resultCode}`
+		}
+		
 		const params: ITranslateParams = {
 		    lang: lang,
 		    text: value,
