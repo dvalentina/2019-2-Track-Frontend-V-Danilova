@@ -45,7 +45,7 @@ export default function LanguageLine(props: T.IProps) {
 
 	useEffect(() => {
 		changeButtonsState(props.chosenLanguage)
-	}, [props.chosenLanguage])
+	}, [props.chosenLanguage, changeButtonsState])
 
 	return (
 		<div className={styles.div} >
