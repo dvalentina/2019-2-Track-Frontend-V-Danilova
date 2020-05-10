@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styles from '../styles/messageFormStyles.module.css';
 import FormInput from './FormInput.js';
 import MessageBlock from './MessageBlock.js';
+import Boundary from './Boundary.js';
 
 let mediaRecorder = null;
 
@@ -218,24 +219,26 @@ export default function MessageForm(props) {
 	const reversedMessages = reverseArray(messages);
 
 	return (
-		<div>
-			<div className={styles.chatBox} onDragEnter={stopDrop} onDragOver={stopDrop} onDrop={drop}>
-				{reversedMessages}
+		<Boundary>
+			<div>
+				<div className={styles.chatBox} onDragEnter={stopDrop} onDragOver={stopDrop} onDrop={drop}>
+					{reversedMessages}
+				</div>
+				<FormInput
+					value={inputValue}
+					handleChange={handleChange}
+					handleSubmit={handleSubmit}
+					handleAttachGeolocation={handleAttachGeolocation}
+					handleAttachAudio={handleAttachAudio}
+					handleAttachImage={handleAttachImage}
+					isAttachPressed={isAttachPressed}
+					handleAttach={handleAttach}
+					isRecording={isRecording}
+					isEmojiButtonPressed={isEmojiButtonPressed}
+					handleEmojiButtonClicked={handleEmojiButtonClicked}
+					handleEmojiClicked={handleEmojiClicked}
+				/>
 			</div>
-			<FormInput
-				value={inputValue}
-				handleChange={handleChange}
-				handleSubmit={handleSubmit}
-				handleAttachGeolocation={handleAttachGeolocation}
-				handleAttachAudio={handleAttachAudio}
-				handleAttachImage={handleAttachImage}
-				isAttachPressed={isAttachPressed}
-				handleAttach={handleAttach}
-				isRecording={isRecording}
-				isEmojiButtonPressed={isEmojiButtonPressed}
-				handleEmojiButtonClicked={handleEmojiButtonClicked}
-				handleEmojiClicked={handleEmojiClicked}
-			/>
-		</div>
+		</Boundary>
 	);
 }

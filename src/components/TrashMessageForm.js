@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from '../styles/messageFormStyles.module.css';
 import FormInput from './FormInput.js';
 import TrashMessageBlock from './TrashMessageBlock.js';
+import Boundary from './Boundary.js';
 import { TRASH_CHAT_ID, TRASH_CHAT_MESSAGES_URL, SEND_MESSAGE_URL } from '../constants.js';
 
 let mediaRecorder = null;
@@ -215,22 +216,24 @@ export default function TrashMessageForm({ userName, userID }) {
 	const reversedMessages = reverseArray(messages);
 
 	return (
-		<div>
-			<div className={styles.chatBox} onDragEnter={stopDrop} onDragOver={stopDrop} onDrop={drop}>
-				{reversedMessages}
+		<Boundary>
+			<div>
+				<div className={styles.chatBox} onDragEnter={stopDrop} onDragOver={stopDrop} onDrop={drop}>
+					{reversedMessages}
+				</div>
+				<FormInput
+					value={inputValue}
+					handleChange={handleChange}
+					handleSubmit={handleSubmit}
+					handleAttachGeolocation={handleAttachGeolocation}
+					handleAttachAudio={handleAttachAudio}
+					handleAttachImage={handleAttachImage}
+					isAttachPressed={isAttachPressed}
+					handleAttach={handleAttach}
+					isRecording={isRecording}
+				/>
 			</div>
-			<FormInput
-				value={inputValue}
-				handleChange={handleChange}
-				handleSubmit={handleSubmit}
-				handleAttachGeolocation={handleAttachGeolocation}
-				handleAttachAudio={handleAttachAudio}
-				handleAttachImage={handleAttachImage}
-				isAttachPressed={isAttachPressed}
-				handleAttach={handleAttach}
-				isRecording={isRecording}
-			/>
-		</div>
+		</Boundary>
 	);
 }
 

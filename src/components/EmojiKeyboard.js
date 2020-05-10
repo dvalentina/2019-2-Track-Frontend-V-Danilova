@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Boundary from './Boundary.js';
 import styles from '../styles/emojiStyles.module.css';
 
 export default function EmojiKeyboard({
@@ -36,11 +37,13 @@ export default function EmojiKeyboard({
 		);
 	};
 	return (
-		<div>
-			<div className={styles.emojis}>
-				{emojiComponentsArray}
+		<Boundary>
+			<div>
+				<div className={styles.emojis}>
+					{emojiComponentsArray}
+				</div>
 			</div>
-		</div>
+		</Boundary>
 	);
 }
 
@@ -55,14 +58,16 @@ function Emoji({
 }) {
 	const className = `${styles.emoji} ${styles[name]}`;
 	return (
-		<div
-			className={className}
-			onClick={() => handleEmojiClicked(name)}
-			onKeyDown={() => handleEmojiClicked(name)}
-			role='button'
-			tabIndex={name}
-			aria-label={name}
-		/>
+		<Boundary>
+			<div
+				className={className}
+				onClick={() => handleEmojiClicked(name)}
+				onKeyDown={() => handleEmojiClicked(name)}
+				role='button'
+				tabIndex={name}
+				aria-label={name}
+			/>
+		</Boundary>
 	);
 }
 

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import styles from '../../styles/webRTCMessageFormStyles.module.css';
 import FormInput from '../FormInput.js';
 import WebRTCMessageBlock from './WebRTCMessageBlock.js';
+import Boundary from '../Boundary';
 
 let mediaRecorder = null;
 
@@ -198,25 +199,27 @@ export default function WebRTCMessageForm({
 	const reversedMessages = reverseArray(messages);
 
 	return (
-		<div>
-			<div className={styles.chatBox} onDragEnter={stopDrop} onDragOver={stopDrop} onDrop={drop}>
-				{reversedMessages}
+		<Boundary>
+			<div>
+				<div className={styles.chatBox} onDragEnter={stopDrop} onDragOver={stopDrop} onDrop={drop}>
+					{reversedMessages}
+				</div>
+				<FormInput
+					value={inputValue}
+					handleChange={handleChange}
+					handleSubmit={handleSubmit}
+					handleAttachGeolocation={handleAttachGeolocation}
+					handleAttachAudio={handleAttachAudio}
+					handleAttachImage={handleAttachImage}
+					isAttachPressed={isAttachPressed}
+					handleAttach={handleAttach}
+					isRecording={isRecording}
+					isEmojiButtonPressed={isEmojiButtonPressed}
+					handleEmojiButtonClicked={handleEmojiButtonClicked}
+					handleEmojiClicked={handleEmojiClicked}
+				/>
 			</div>
-			<FormInput
-				value={inputValue}
-				handleChange={handleChange}
-				handleSubmit={handleSubmit}
-				handleAttachGeolocation={handleAttachGeolocation}
-				handleAttachAudio={handleAttachAudio}
-				handleAttachImage={handleAttachImage}
-				isAttachPressed={isAttachPressed}
-				handleAttach={handleAttach}
-				isRecording={isRecording}
-				isEmojiButtonPressed={isEmojiButtonPressed}
-				handleEmojiButtonClicked={handleEmojiButtonClicked}
-				handleEmojiClicked={handleEmojiClicked}
-			/>
-		</div>
+		</Boundary>
 	);
 }
 

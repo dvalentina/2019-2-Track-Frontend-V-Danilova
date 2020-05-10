@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from '../styles/chatHeaderStyles.module.css';
+import Boundary from './Boundary.js';
 import { ReactComponent as UserAvatarSvg } from '../assets/icons/user.svg';
 import { ReactComponent as ReturnButtonSvg } from '../assets/icons/return.svg';
 import { ReactComponent as SearchButtonSvg } from '../assets/icons/search.svg';
@@ -54,10 +55,12 @@ function ChatTitle(props) {
 	}
 	const userStatus = 'был(а) 2 часа назад';
 	return (
-		<div className={styles.userInfo}>
-			<p className={styles.userName}>{userName}</p>
-			<p className={styles.userStatus}>{userStatus}</p>
-		</div>
+		<Boundary>
+			<div className={styles.userInfo}>
+				<p className={styles.userName}>{userName}</p>
+				<p className={styles.userStatus}>{userStatus}</p>
+			</div>
+		</Boundary>
 	);
 }
 

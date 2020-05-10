@@ -1,27 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../styles/twoMessageBlockStyles.module.css';
+import Boundary from './Boundary.js';
 
 export default function TrashMessageBlock({ userID, authorName, content, time, type }) {
 	if (userID === authorName) {
 		return (
-			<div className={styles.myMessageBlock}>
-				<div className={styles.myResult}>
+			<Boundary>
+				<div className={styles.myMessageBlock}>
+					<div className={styles.myResult}>
+						<div className={styles.authorName}>User #{authorName}</div>
+						<Content type={type} content={content} />
+						<div className={styles.time}>{time.slice(11, 19)}</div>
+					</div>
+				</div>
+			</Boundary>
+		);
+	}
+	return (
+		<Boundary>
+			<div className={styles.otherMessageBlock}>
+				<div className={styles.otherResult}>
 					<div className={styles.authorName}>User #{authorName}</div>
 					<Content type={type} content={content} />
 					<div className={styles.time}>{time.slice(11, 19)}</div>
 				</div>
 			</div>
-		);
-	}
-	return (
-		<div className={styles.otherMessageBlock}>
-			<div className={styles.otherResult}>
-				<div className={styles.authorName}>User #{authorName}</div>
-				<Content type={type} content={content} />
-				<div className={styles.time}>{time.slice(11, 19)}</div>
-			</div>
-		</div>
+		</Boundary>
 	);
 }
 
@@ -35,32 +40,40 @@ TrashMessageBlock.propTypes = {
 
 function Content({ type, content }) {
 	if (type === 'text') {
-		return <div className={styles.textContent}>{content}</div>;
+		return(
+			<Boundary>
+				<div className={styles.textContent}>{content}</div>
+			</Boundary>
+		);
 	}
 	if (type === 'image') {
 		return (
-			<img
-				className={styles.imageContent}
-				src={content}
-				alt={content}
-				onLoad={() => {
-					window.URL.revokeObjectURL(content);
-				}}
-			/>
+			<Boundary>
+				<img
+					className={styles.imageContent}
+					src={content}
+					alt={content}
+					onLoad={() => {
+						window.URL.revokeObjectURL(content);
+					}}
+				/>
+			</Boundary>
 		);
 	}
 	if (type === 'audio') {
 		return (
-			<audio
-				controls
-				src={content}
-				className={styles.audioContent}
-				onLoad={() => {
-					window.URL.revokeObjectURL(content);
-				}}
-			>
-				<track default kind="captions" srcLang="ru" src={content} />
-			</audio>
+			<Boundary>
+				<audio
+					controls
+					src={content}
+					className={styles.audioContent}
+					onLoad={() => {
+						window.URL.revokeObjectURL(content);
+					}}
+				>
+					<track default kind="captions" srcLang="ru" src={content} />
+				</audio>
+			</Boundary>
 		);
 	}
 	return null;

@@ -9,6 +9,7 @@
     "@babel/runtime": "^7.8.7",
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.22",
+    "@sentry/browser": "^5.15.5",
     "@svgr/webpack": "4.3.3",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
