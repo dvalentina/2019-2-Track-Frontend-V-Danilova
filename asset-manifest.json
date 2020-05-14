@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/2019-2-Track-Frontend-V-Danilova/static/css/main.ce604ddd.chunk.css",
+    "main.js": "/2019-2-Track-Frontend-V-Danilova/static/js/main.dd520ab2.chunk.js",
+    "main.js.map": "/2019-2-Track-Frontend-V-Danilova/static/js/main.dd520ab2.chunk.js.map",
+    "runtime-main.js": "/2019-2-Track-Frontend-V-Danilova/static/js/runtime-main.4536a1b2.js",
+    "runtime-main.js.map": "/2019-2-Track-Frontend-V-Danilova/static/js/runtime-main.4536a1b2.js.map",
+    "static/js/2.48ede91a.chunk.js": "/2019-2-Track-Frontend-V-Danilova/static/js/2.48ede91a.chunk.js",
+    "static/js/2.48ede91a.chunk.js.map": "/2019-2-Track-Frontend-V-Danilova/static/js/2.48ede91a.chunk.js.map",
+    "index.html": "/2019-2-Track-Frontend-V-Danilova/index.html",
+    "precache-manifest.a868b79b453c466cc3cc4842eeeeda0e.js": "/2019-2-Track-Frontend-V-Danilova/precache-manifest.a868b79b453c466cc3cc4842eeeeda0e.js",
+    "service-worker.js": "/2019-2-Track-Frontend-V-Danilova/service-worker.js",
+    "static/css/main.ce604ddd.chunk.css.map": "/2019-2-Track-Frontend-V-Danilova/static/css/main.ce604ddd.chunk.css.map",
+    "static/js/2.48ede91a.chunk.js.LICENSE.txt": "/2019-2-Track-Frontend-V-Danilova/static/js/2.48ede91a.chunk.js.LICENSE.txt",
+    "static/media/arrow.f330b7ad.svg": "/2019-2-Track-Frontend-V-Danilova/static/media/arrow.f330b7ad.svg",
+    "static/media/logo.svg": "/2019-2-Track-Frontend-V-Danilova/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4536a1b2.js",
+    "static/js/2.48ede91a.chunk.js",
+    "static/css/main.ce604ddd.chunk.css",
+    "static/js/main.dd520ab2.chunk.js"
+  ]
+}
