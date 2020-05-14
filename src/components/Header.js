@@ -3,16 +3,29 @@ import PropTypes from 'prop-types';
 import ChatListHeader from './ChatListHeader.js';
 import ChatHeader from './ChatHeader.js';
 import EditProfileHeader from './EditProfileHeader.js';
+import Boundary from './Boundary.js';
 
 export default function Header({ screen }) {
 	if (screen === 'chat') {
-		return <ChatHeader />;
+		return(
+			<Boundary>
+				<ChatHeader />
+			</Boundary>
+		);
 	}
 	if (screen === 'chat list') {
-		return <ChatListHeader />;
+		return(
+			<Boundary>
+				<ChatListHeader />
+			</Boundary>
+		);
 	}
 	if (screen === 'edit profile') {
-		return <EditProfileHeader />;
+		return(
+			<Boundary>
+				<EditProfileHeader />
+			</Boundary>
+		);
 	}
 	return null;
 }

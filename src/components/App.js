@@ -13,6 +13,7 @@ import MessagesContainer from './WebRTC/MessagesContainer.js';
 import WebRTCInputID from './WebRTC/WebRTCInputID.js';
 import CentrifugoChatHeader from './Centrifugo/CentrifugoChatHeader.js';
 import CentrifugoMessageForm from './Centrifugo/CentrifugoMessageForm.js';
+import Boundary from './Boundary.js';
 import { CREATE_USER_URL } from '../constants.js';
 
 export default class App extends React.Component {
@@ -93,42 +94,44 @@ export default class App extends React.Component {
 		} = this.state;
 
 		return (
-			<HashRouter>
-				<Route exact path="/">
-					<Header screen="chat list" />
-					<MessengerScreen screen="chat list" />
-				</Route>
-				<Route path="/edit_profile">
-					<Header screen="edit profile" />
-					<MessengerScreen screen="edit profile" />
-				</Route>
-				<Route path="/chat/:chatId">
-					<Header screen="chat" />
-					<MessengerScreen screen="chat" />
-				</Route>
-				<Route exact path="/trash_chat">
-					<TrashChatHeader />
-					<TrashMessageForm userName={nameUser} userID={userID} />
-				</Route>
-				<Route exact path="/webrtc">
-					<WebRTCChatHeader myPeerID={myPeerID} />
-					<WebRTCInputID
-						handleForeignIDSubmit={this.handleForeignIDSubmit}
-						foreignPeerID={foreignPeerID}
-						foreignInputValue={foreignInputValue}
-						handleForeignIDInputChange={this.handleForeignIDInputChange}
-					/>
-					<MessagesContainer
-						myPeerID={myPeerID}
-						myPeerConn={myPeerConn}
-						foreignPeerConn={foreignPeerConn}
-					/>
-				</Route>
-				<Route exact path="/centrifugo">
-					<CentrifugoChatHeader userID={userID} />
-					<CentrifugoMessageForm userName={nameUser} userID={userID} />
-				</Route>
-			</HashRouter>
+			<Boundary>
+				<HashRouter>
+					<Route exact path="/">
+						<Header screen="chat list" />
+						<MessengerScreen screen="chat list" />
+					</Route>
+					<Route path="/edit_profile">
+						<Header screen="edit profile" />
+						<MessengerScreen screen="edit profile" />
+					</Route>
+					<Route path="/chat/:chatId">
+						<Header screen="chat" />
+						<MessengerScreen screen="chat" />
+					</Route>
+					<Route exact path="/trash_chat">
+						<TrashChatHeader />
+						<TrashMessageForm userName={nameUser} userID={userID} />
+					</Route>
+					<Route exact path="/webrtc">
+						<WebRTCChatHeader myPeerID={myPeerID} />
+						<WebRTCInputID
+							handleForeignIDSubmit={this.handleForeignIDSubmit}
+							foreignPeerID={foreignPeerID}
+							foreignInputValue={foreignInputValue}
+							handleForeignIDInputChange={this.handleForeignIDInputChange}
+						/>
+						<MessagesContainer
+							myPeerID={myPeerID}
+							myPeerConn={myPeerConn}
+							foreignPeerConn={foreignPeerConn}
+						/>
+					</Route>
+					<Route exact path="/centrifugo">
+						<CentrifugoChatHeader userID={userID} />
+						<CentrifugoMessageForm userName={nameUser} userID={userID} />
+					</Route>
+				</HashRouter>
+			</Boundary>
 		);
 	}
 }

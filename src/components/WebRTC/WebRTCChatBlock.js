@@ -7,21 +7,24 @@ import {
 	ChatBlockRight,
 	ChatBlockCenter,
 } from '../ChatBlock.js';
+import Boundary from '../Boundary';
 
 export default function WebRTCChatBlock({ 
 	lastMessage, name, time 
 }) {
 	return (
-		<div>
-			<Link to="/webrtc" className={styles.link}>
-				<div className={styles.chatBlock}>
-					<ChatAvatar />
-					<ChatBlockCenter name={name} lastMessage={lastMessage} />
-					<ChatBlockRight time={time} />
-				</div>
-			</Link>
-			<hr />
-		</div>
+		<Boundary>
+			<div>
+				<Link to="/webrtc" className={styles.link}>
+					<div className={styles.chatBlock}>
+						<ChatAvatar />
+						<ChatBlockCenter name={name} lastMessage={lastMessage} />
+						<ChatBlockRight time={time} />
+					</div>
+				</Link>
+				<hr />
+			</div>
+		</Boundary>
 	);
 }
 

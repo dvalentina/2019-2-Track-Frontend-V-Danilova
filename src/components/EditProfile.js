@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../styles/editProfileStyles.module.css';
+import Boundary from './Boundary.js';
 import { ReactComponent as ChangeAvatarSvg } from '../assets/icons/camera.svg';
 
 export default function EditProfile(props) {
@@ -25,26 +26,28 @@ export default function EditProfile(props) {
 	}
 
 	return (
-		<div className={styles.editProfileSpace}>
-			<ChangeAvatar />
-			<form onSubmit={handleSubmit} className={styles.formSpace}>
-				<FullName
-					handleFullNameChange={handleFullNameChange}
-					handleSubmit={handleSubmit}
-					fullName={fullName}
-				/>
-				<UserName
-					handleUserNameChange={handleUserNameChange}
-					handleSubmit={handleSubmit}
-					userName={userName}
-				/>
-				<Bio
-					handleBioChange={handleBioChange}
-					handleSubmit={handleSubmit}
-					bio={bio}
-				/>
-			</form>
-		</div>
+		<Boundary>
+			<div className={styles.editProfileSpace}>
+				<ChangeAvatar />
+				<form onSubmit={handleSubmit} className={styles.formSpace}>
+					<FullName
+						handleFullNameChange={handleFullNameChange}
+						handleSubmit={handleSubmit}
+						fullName={fullName}
+					/>
+					<UserName
+						handleUserNameChange={handleUserNameChange}
+						handleSubmit={handleSubmit}
+						userName={userName}
+					/>
+					<Bio
+						handleBioChange={handleBioChange}
+						handleSubmit={handleSubmit}
+						bio={bio}
+					/>
+				</form>
+			</div>
+		</Boundary>
 	);
 }
 

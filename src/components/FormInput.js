@@ -8,6 +8,7 @@ import { ReactComponent as StartRecordButtonSvg } from '../assets/icons/micropho
 import { ReactComponent as StopRecordButtonSvg } from '../assets/icons/pause.svg';
 import { ReactComponent as EmojiButtonSvg } from '../assets/icons/emoji.svg';
 import EmojiKeyboard from './EmojiKeyboard.js';
+import Boundary from './Boundary.js';
 
 export default function FormInput({
 	value,
@@ -24,30 +25,32 @@ export default function FormInput({
 	handleEmojiClicked,
 }) {
 	return (
-		<form
-			className={styles.formInput} 
-			onSubmit={handleSubmit}
-			id="send_message"
-		>
-			<input
-				type="text"
-				placeholder="Сообщение"
-				value={value}
-				onChange={handleChange}
-				className={styles.inputMessage}
-			/>
-			<AttachmentButton
-				isPressed={isAttachPressed}
-				isRecording={isRecording}
-				isEmojiButtonPressed={isEmojiButtonPressed}
-				handleAttach={handleAttach}
-				handleAttachImage={handleAttachImage}
-				handleAttachAudio={handleAttachAudio}
-				handleAttachGeolocation={handleAttachGeolocation}
-				handleEmojiButtonClicked={handleEmojiButtonClicked}
-				handleEmojiClicked={handleEmojiClicked}
-			/>
-		</form>
+		<Boundary>
+			<form
+				className={styles.formInput} 
+				onSubmit={handleSubmit}
+				id="send_message"
+			>
+				<input
+					type="text"
+					placeholder="Сообщение"
+					value={value}
+					onChange={handleChange}
+					className={styles.inputMessage}
+				/>
+				<AttachmentButton
+					isPressed={isAttachPressed}
+					isRecording={isRecording}
+					isEmojiButtonPressed={isEmojiButtonPressed}
+					handleAttach={handleAttach}
+					handleAttachImage={handleAttachImage}
+					handleAttachAudio={handleAttachAudio}
+					handleAttachGeolocation={handleAttachGeolocation}
+					handleEmojiButtonClicked={handleEmojiButtonClicked}
+					handleEmojiClicked={handleEmojiClicked}
+				/>
+			</form>
+		</Boundary>
 	);
 }
 
@@ -85,59 +88,63 @@ function AttachmentButton({
 	}
 	if (!isPressed) {
 		return (
-			<button
-				onClick={handleAttach}
-				type='button'
-				className={styles.attachmentButton}
-			>
-				<AttachmentButtonSvg className={styles.attachmentButtonSvg} />
-			</button>
+			<Boundary>
+				<button
+					onClick={handleAttach}
+					type='button'
+					className={styles.attachmentButton}
+				>
+					<AttachmentButtonSvg className={styles.attachmentButtonSvg} />
+				</button>
+			</Boundary>
 		);
 	}
 	return (
-		<div className={styles.attachmentButtonsWrap}>
-			<EmojiKeyboard
-				isPressed={isEmojiButtonPressed}
-				handleEmojiClicked={handleEmojiClicked}
-			/>
-			<button
-				onClick={handleEmojiButtonClicked}
-				type='button'
-				className={styles.attachmentButton}
-			>
-				<EmojiButtonSvg className={styles.attachmentButtonSvg} />
-			</button>
-			<button
-				onClick={handleImageInput}
-				type='button'
-				className={styles.attachmentButton}
-			>
-				<ImageButtonSvg className={styles.attachmentButtonSvg} />
-			</button>
-			<input
-				id='image'
-				type='file'
-				multiple
-				accept='image/*'
-				onChange={handleAttachImage}
-				ref={imageInput}
-				style={{ display: 'none' }}
-			/>
-			<button
-				onClick={handleAttachAudio}
-				type='button'
-				className={styles.attachmentButton}
-			>
-				<AudioButtonSvg isRecording={isRecording} />
-			</button>
-			<button
-				onClick={handleAttachGeolocation}
-				type='button'
-				className={styles.attachmentButton}
-			>
-				<GeoButtonSvg className={styles.attachmentButtonSvg} />
-			</button>
-		</div>
+		<Boundary>
+			<div className={styles.attachmentButtonsWrap}>
+				<EmojiKeyboard
+					isPressed={isEmojiButtonPressed}
+					handleEmojiClicked={handleEmojiClicked}
+				/>
+				<button
+					onClick={handleEmojiButtonClicked}
+					type='button'
+					className={styles.attachmentButton}
+				>
+					<EmojiButtonSvg className={styles.attachmentButtonSvg} />
+				</button>
+				<button
+					onClick={handleImageInput}
+					type='button'
+					className={styles.attachmentButton}
+				>
+					<ImageButtonSvg className={styles.attachmentButtonSvg} />
+				</button>
+				<input
+					id='image'
+					type='file'
+					multiple
+					accept='image/*'
+					onChange={handleAttachImage}
+					ref={imageInput}
+					style={{ display: 'none' }}
+				/>
+				<button
+					onClick={handleAttachAudio}
+					type='button'
+					className={styles.attachmentButton}
+				>
+					<AudioButtonSvg isRecording={isRecording} />
+				</button>
+				<button
+					onClick={handleAttachGeolocation}
+					type='button'
+					className={styles.attachmentButton}
+				>
+					<GeoButtonSvg className={styles.attachmentButtonSvg} />
+				</button>
+			</div>
+		</Boundary>
 	);
 }
 
@@ -156,11 +163,15 @@ AttachmentButton.propTypes = {
 function AudioButtonSvg({ isRecording }) {
 	if (isRecording) {
 		return (
-			<StopRecordButtonSvg className={styles.attachmentButtonSvg} />
+			<Boundary>
+				<StopRecordButtonSvg className={styles.attachmentButtonSvg} />
+			</Boundary>
 		);
 	};
 	return (
-		<StartRecordButtonSvg className={styles.attachmentButtonSvg} />
+		<Boundary>
+			<StartRecordButtonSvg className={styles.attachmentButtonSvg} />
+		</Boundary>
 	);
 }
 

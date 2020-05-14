@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from '../styles/chatBlockStyles.module.css';
+import Boundary from './Boundary.js';
 import { ReactComponent as ChatAvatarSvg } from '../assets/icons/user.svg';
 import { ReactComponent as DeliveryIndicatorSvg } from '../assets/icons/tick.svg';
 
@@ -80,9 +81,11 @@ ChatBlockRight.propTypes = {
 
 function ChatDeliveryIndicator(props) {
 	return (
-		<div className={styles.chatDeliveryIndicator}>
-			<DeliveryIndicatorSvg className={styles.chatDeliveryIndicatorSvg} />
-		</div>
+		<Boundary>
+			<div className={styles.chatDeliveryIndicator}>
+				<DeliveryIndicatorSvg className={styles.chatDeliveryIndicatorSvg} />
+			</div>
+		</Boundary>
 	);
 }
 

@@ -5,6 +5,7 @@ import ChatBlock from './ChatBlock.js';
 import TrashChatBlock from './TrashChatBlock.js';
 import WebRTCChatBlock from './WebRTC/WebRTCChatBlock.js';
 import CentrifugoChatBlock from './Centrifugo/CentrifugoChatBlock.js';
+import Boundary from './Boundary.js';
 
 export default function ChatList(props) {
 	const [chats, setChats] = useState(initChats());
@@ -100,16 +101,18 @@ export default function ChatList(props) {
 
 	const reversedChats = reverseArray(chats);
 	return (
-		<div>
-			<div className={styles.chatListSpace}>
-				{trashChatBlock}
-				{webRTCChatBlock}
-				{centrifugoChatBlock}
-				{reversedChats}
+		<Boundary>
+			<div>
+				<div className={styles.chatListSpace}>
+					{trashChatBlock}
+					{webRTCChatBlock}
+					{centrifugoChatBlock}
+					{reversedChats}
+				</div>
+				<button type="button" id="create_chat" className={styles.createChatButton} onClick={handleCreateChatClick}>
+					<CreateChatButtonSvg className={styles.createChatButtonSvg} />
+				</button>
 			</div>
-			<button type="button" id="create_chat" className={styles.createChatButton} onClick={handleCreateChatClick}>
-				<CreateChatButtonSvg className={styles.createChatButtonSvg} />
-			</button>
-		</div>
+		</Boundary>
 	);
 }
