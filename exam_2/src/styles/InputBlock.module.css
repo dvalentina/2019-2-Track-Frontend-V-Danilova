@@ -1,0 +1,17 @@
+.div {
+	height: 30vh;
+	width: 45vw;
+	display: flex;
+}
+
+.textarea {
+	display: flex;
+	height: 30vh;
+	font-size: 2vh;
+	width: 45vw;
+	outline: none;
+	overflow: auto;
+	border: none;
+	background-color: white;
+	resize: none;
+}
