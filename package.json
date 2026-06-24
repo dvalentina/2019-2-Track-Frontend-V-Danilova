@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "Valentina Danilova",
   "dependencies": {
-    "@babel/core": "7.8.4",
+    "@babel/core": "7.29.6",
     "@babel/runtime": "^7.8.7",
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.22",
